@@ -136,7 +136,7 @@ export default function Home() {
                       <stat.icon className="h-10 w-10 text-purple-300" />
                     </div>
                   </div>
-                  <p className="text-6xl font-black mb-3 bg-gradient-to-br from-white via-purple-200 to-purple-400 bg-clip-text text-transparent drop-shadow-lg animate-[pulse_2s_ease-in-out_infinite]">{stat.value}</p>
+                  <p className="text-6xl font-black mb-3 bg-gradient-to-br from-white via-purple-200 to-purple-400 bg-clip-text text-transparent drop-shadow-lg animate-[pulse_2s_ease-in-out_infinite] !w-[106%] !h-[123px]">{stat.value}</p>
                   <p className="text-lg text-purple-300/90 font-semibold tracking-wide">{stat.label}</p>
                 </CardContent>
               </Card>
