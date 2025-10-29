@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1759311527265,
+      "tag": "0000_luxuriant_catseye",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1759311589906,
+      "tag": "0001_nice_wilson_fisk",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1759314125723,
+      "tag": "0002_fine_vindicator",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1759342706917,
+      "tag": "0003_married_nextwave",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1759342813557,
+      "tag": "0004_polite_mercury",
+      "breakpoints": true
+    }
+  ]
+}
