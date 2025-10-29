@@ -42,20 +42,16 @@ export default function Home() {
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-600/20 via-purple-900/5 to-transparent animate-pulse" style={{ animationDuration: "8s" }} />
           
-          {/* Animated Floating Orbs */}
+          {/* Animated Floating Orbs - Optimized */}
           <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-gradient-to-br from-purple-500/30 via-purple-600/20 to-transparent rounded-full blur-[128px] animate-[float_20s_ease-in-out_infinite]" />
           <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-blue-500/25 via-indigo-500/15 to-transparent rounded-full blur-[100px] animate-[float_25s_ease-in-out_infinite_reverse]" />
-          <div className="absolute bottom-1/4 left-1/3 w-[700px] h-[700px] bg-gradient-to-br from-violet-500/20 via-fuchsia-500/10 to-transparent rounded-full blur-[120px] animate-[float_18s_ease-in-out_infinite]" style={{ animationDelay: "5s" }} />
           
-          {/* Animated Grid Overlay */}
+          {/* Animated Grid Overlay - Single layer for performance */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#8b5cf620_1px,transparent_1px),linear-gradient(to_bottom,#8b5cf620_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] animate-[gridSlide_30s_linear_infinite]" />
           
-          {/* Second Animated Grid Layer */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#8b5cf610_2px,transparent_2px),linear-gradient(to_bottom,#8b5cf610_2px,transparent_2px)] bg-[size:8rem_8rem] [mask-image:radial-gradient(ellipse_60%_40%_at_50%_0%,#000_60%,transparent_100%)] animate-[gridSlide_40s_linear_infinite_reverse]" />
-          
-          {/* Floating Particles */}
+          {/* Floating Particles - Reduced from 20 to 8 for performance */}
           <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div
                 key={i}
                 className="absolute w-1 h-1 bg-purple-400/40 rounded-full animate-[floatParticle_15s_ease-in-out_infinite]"
@@ -63,7 +59,6 @@ export default function Home() {
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
                   animationDelay: `${Math.random() * 10}s`,
-                  animationDuration: `${15 + Math.random() * 10}s`
                 }}
               />
             ))}
@@ -234,49 +229,6 @@ export default function Home() {
           </div>
         </footer>
       </div>
-
-      {/* Custom Keyframes Styles */}
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(30px, -30px) scale(1.05); }
-          50% { transform: translate(-20px, -50px) scale(0.95); }
-          75% { transform: translate(-40px, -20px) scale(1.02); }
-        }
-        
-        @keyframes gridSlide {
-          0% { background-position: 0 0; }
-          100% { background-position: 64px 64px; }
-        }
-        
-        @keyframes floatParticle {
-          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-          25% { transform: translate(20px, -40px) scale(1.5); opacity: 0.6; }
-          50% { transform: translate(-30px, -80px) scale(1); opacity: 0.4; }
-          75% { transform: translate(15px, -60px) scale(1.3); opacity: 0.7; }
-        }
-        
-        @keyframes shimmer {
-          0%, 100% { background-position: -200% center; }
-          50% { background-position: 200% center; }
-        }
-        
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes wiggle {
-          0%, 100% { transform: rotate(0deg); }
-          25% { transform: rotate(-5deg); }
-          75% { transform: rotate(5deg); }
-        }
-      `}</style>
     </>
   );
 }
