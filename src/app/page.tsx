@@ -55,18 +55,18 @@ export default function Home() {
           
           {/* Floating Particles */}
           <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) =>
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-purple-400/40 rounded-full animate-[floatParticle_15s_ease-in-out_infinite]"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 10}s`,
-                animationDuration: `${15 + Math.random() * 10}s`
-              }} />
-
-            )}
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 bg-purple-400/40 rounded-full animate-[floatParticle_15s_ease-in-out_infinite]"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 10}s`,
+                  animationDuration: `${15 + Math.random() * 10}s`
+                }}
+              />
+            ))}
           </div>
         </div>
         
@@ -123,10 +123,11 @@ export default function Home() {
         <section className="relative max-w-7xl mx-auto px-6 py-24">
           <div className="grid gap-8 md:grid-cols-3">
             {stats.map((stat, index) =>
-            <Card
-              key={index}
+            <Card 
+              key={index} 
               className="relative group bg-gradient-to-br from-white/[0.08] via-purple-500/[0.05] to-transparent backdrop-blur-2xl border-2 border-purple-400/30 rounded-3xl shadow-[0_8px_32px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_80px_rgba(139,92,246,0.7)] transition-all duration-500 hover:scale-110 hover:-rotate-1 overflow-hidden animate-[fadeInUp_0.6s_ease-out_both]"
               style={{ animationDelay: `${index * 0.1}s` }}>
+                {/* Premium Shimmer Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 
                 <CardContent className="relative pt-10 pb-10 text-center">
@@ -136,7 +137,7 @@ export default function Home() {
                       <stat.icon className="h-10 w-10 text-purple-300" />
                     </div>
                   </div>
-                  <p className="text-6xl font-black mb-3 bg-gradient-to-br from-white via-purple-200 to-purple-400 bg-clip-text text-transparent drop-shadow-lg animate-[pulse_2s_ease-in-out_infinite] !w-[106%] !h-[123px]">{stat.value}</p>
+                  <p className="text-6xl font-black mb-3 bg-gradient-to-br from-white via-purple-200 to-purple-400 bg-clip-text text-transparent drop-shadow-lg animate-[pulse_2s_ease-in-out_infinite]">{stat.value}</p>
                   <p className="text-lg text-purple-300/90 font-semibold tracking-wide">{stat.label}</p>
                 </CardContent>
               </Card>
@@ -157,10 +158,11 @@ export default function Home() {
           
           <div className="grid gap-10 md:grid-cols-3">
             {features.map((feature, index) =>
-            <Card
-              key={index}
+            <Card 
+              key={index} 
               className="relative group border-2 border-purple-400/30 hover:border-purple-400/60 transition-all duration-500 hover:scale-110 hover:-translate-y-2 bg-gradient-to-br from-black/50 via-purple-950/30 to-black/50 backdrop-blur-2xl rounded-3xl shadow-2xl hover:shadow-[0_30px_100px_rgba(139,92,246,0.6)] overflow-hidden animate-[fadeInUp_0.6s_ease-out_both]"
               style={{ animationDelay: `${index * 0.1}s` }}>
+                {/* Animated Border Glow */}
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-purple-400/30 to-purple-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl animate-[shimmerSweep_2s_ease-in-out_infinite]" />
                 
                 <CardContent className="relative pt-10">
@@ -183,6 +185,7 @@ export default function Home() {
         {/* CTA Section - Billionaire Vibes */}
         <section className="relative max-w-7xl mx-auto px-6 py-32">
           <Card className="relative border-2 border-purple-400/40 bg-gradient-to-br from-purple-950/40 via-black/60 to-purple-900/40 backdrop-blur-2xl rounded-[3rem] shadow-[0_32px_128px_rgba(139,92,246,0.6)] overflow-hidden hover:scale-[1.02] transition-all duration-500 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
+            {/* Multiple Layered Glow Effects */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-purple-500/40 via-purple-600/20 to-transparent rounded-full blur-[128px] animate-[float_15s_ease-in-out_infinite]" />
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-500/30 via-indigo-600/15 to-transparent rounded-full blur-[128px] animate-[float_20s_ease-in-out_infinite_reverse]" />
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
@@ -227,14 +230,7 @@ export default function Home() {
                 Study Boi
               </span>
             </div>
-            <p className="text-lg text-purple-300/80 font-medium mb-4">© 2025 Study Boi. Empowering students to achieve their dreams.</p>
-            
-            {/* Powered by Compyle Watermark */}
-            <div className="pt-6 border-t border-purple-400/20">
-              <p className="text-sm text-purple-400/60 font-medium">
-                Powered by <span className="font-bold text-purple-400/80">Compyle</span>
-              </p>
-            </div>
+            <p className="text-lg text-purple-300/80 font-medium">© 2025 Study Boi. Empowering students to achieve their dreams.</p>
           </div>
         </footer>
       </div>
@@ -281,6 +277,6 @@ export default function Home() {
           75% { transform: rotate(5deg); }
         }
       `}</style>
-    </>);
-
+    </>
+  );
 }
