@@ -1,147 +1,142 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { quizzes, quizQuestions, user } from "@/db/schema";
+import { quizzes, quizQuestions, userProfiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+const VALID_DIFFICULTIES = ["easy", "medium", "hard"] as const;
+
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
-    
+
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();
-    const { topic, difficulty, questionCount, additionalInfo } = body;
+    const { topic, difficulty, questionCount, additionalInfo } = body || {};
 
-    // Get user's grade level and name
-    const [userData] = await db
-      .select({ gradeLevel: user.gradeLevel, name: user.name })
-      .from(user)
-      .where(eq(user.id, session.user.id))
+    if (!topic || typeof topic !== "string") {
+      return NextResponse.json({ error: "Topic is required" }, { status: 400 });
+    }
+    if (!VALID_DIFFICULTIES.includes(difficulty)) {
+      return NextResponse.json({ error: `Difficulty must be one of: ${VALID_DIFFICULTIES.join(", ")}` }, { status: 400 });
+    }
+    const count = Math.min(Math.max(parseInt(questionCount) || 10, 3), 25);
+
+    // Get user's grade level from profile (fallback to 10)
+    const [profile] = await db
+      .select({ grade: userProfiles.grade })
+      .from(userProfiles)
+      .where(eq(userProfiles.userId, session.user.id))
       .limit(1);
+    const gradeLevel = profile?.grade ?? 10;
 
-    const gradeLevel = userData?.gradeLevel || 10;
-
-    // Get Gemini API key
     const apiKey = process.env.GEMINI_API_KEY;
-    
     if (!apiKey) {
-      return NextResponse.json(
-        { error: "API key not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "AI key not configured" }, { status: 500 });
     }
 
-    const prompt = `Generate a ${difficulty} difficulty quiz about "${topic}" with exactly ${questionCount} multiple choice questions for a grade ${gradeLevel} student.
+    // NCERT/CBSE-aligned prompt
+    const prompt = `Generate an NCERT/CBSE-aligned quiz about "${topic}" with exactly ${count} multiple-choice questions for a Grade ${gradeLevel} student in India.
+- The content must align with NCERT syllabus and terminology for Grades 6-12.
+- Difficulty level: ${difficulty}.
+- Each question must include exactly 4 options (A-D), with one clearly correct option.
+- Provide a short explanation for each answer.
 
-${additionalInfo ? `Additional context: ${additionalInfo}` : ''}
-
-Return ONLY a valid JSON object (no markdown, no code blocks) in this exact format:
+Return ONLY valid JSON (no markdown) in this exact shape:
 {
   "title": "Quiz title",
   "description": "Brief description",
   "questions": [
     {
       "question": "Question text",
-      "correctAnswer": "Correct answer",
+      "correctAnswer": "Correct answer text",
       "wrongAnswers": ["Wrong 1", "Wrong 2", "Wrong 3"],
-      "explanation": "Why this is correct"
+      "explanation": "Why the answer is correct"
     }
   ]
-}
+}`;
 
-Make questions appropriate for ${difficulty} level. Each question must have exactly 3 wrong answers.`;
-
-    // Call Gemini 2.0 API
-    const response = await fetch(
+    const aiRes = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: prompt,
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.9,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 4096,
-          },
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.7, topK: 40, topP: 0.95, maxOutputTokens: 4096 },
         }),
       }
     );
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("Gemini API error:", errorData);
-      return NextResponse.json(
-        { error: "AI service temporarily unavailable. Please try again." },
-        { status: 503 }
-      );
+    if (!aiRes.ok) {
+      return NextResponse.json({ error: "AI service unavailable" }, { status: 503 });
     }
 
-    const data = await response.json();
-    let aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    const data = await aiRes.json();
+    let aiText: string = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    aiText = aiText.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
 
-    // Clean up the response - remove markdown code blocks if present
-    aiResponse = aiResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-
-    let quizData;
+    let quizData: any;
     try {
-      quizData = JSON.parse(aiResponse);
-    } catch (parseError) {
-      console.error("Failed to parse AI response:", aiResponse);
-      return NextResponse.json(
-        { error: "Failed to generate quiz. Please try again with a different topic." },
-        { status: 500 }
-      );
+      quizData = JSON.parse(aiText);
+    } catch {
+      return NextResponse.json({ error: "Failed to parse AI output. Try again." }, { status: 500 });
     }
 
-    // Create quiz in database
+    if (!quizData?.questions || !Array.isArray(quizData.questions) || quizData.questions.length === 0) {
+      return NextResponse.json({ error: "AI returned no questions" }, { status: 500 });
+    }
+
+    const now = new Date().toISOString();
+
+    // Insert quiz
     const [newQuiz] = await db
       .insert(quizzes)
       .values({
-        title: quizData.title || `${topic} Quiz`,
-        description: quizData.description || `AI-generated quiz about ${topic}`,
+        title: (quizData.title || `${topic} Quiz`).slice(0, 200),
+        description: quizData.description?.slice(0, 1000) || `AI-generated NCERT-aligned quiz on ${topic}`,
+        subject: (typeof topic === "string" ? topic.toLowerCase() : "general").slice(0, 100),
         difficulty,
-        isPublic: false,
         createdBy: session.user.id,
-        userName: userData?.name || session.user.name || "Anonymous",
-        createdAt: new Date(),
+        isPublic: false,
+        createdAt: now,
+        updatedAt: now,
       })
       .returning();
 
-    // Create questions
-    if (quizData.questions && quizData.questions.length > 0) {
-      await db.insert(quizQuestions).values(
-        quizData.questions.map((q: any) => ({
-          quizId: newQuiz.id,
-          question: q.question,
-          correctAnswer: q.correctAnswer,
-          wrongAnswers: JSON.stringify(q.wrongAnswers),
-          explanation: q.explanation || "",
-        }))
-      );
+    // Transform AI questions => options[] + correctAnswer index
+    const transformed = quizData.questions.slice(0, count).map((q: any, idx: number) => {
+      const correct = String(q.correctAnswer || "").trim();
+      const wrongs: string[] = Array.isArray(q.wrongAnswers) ? q.wrongAnswers.map((w: any) => String(w).trim()) : [];
+      const allOptions = [correct, ...wrongs].slice(0, 4);
+      // Ensure exactly 4 options; pad if needed
+      while (allOptions.length < 4) allOptions.push("None of the above");
+      // Shuffle to avoid always index 0
+      const shuffled = [...allOptions].map(v => ({ v, r: Math.random() }))
+        .sort((a, b) => a.r - b.r)
+        .map(o => o.v);
+      const correctIndex = shuffled.findIndex((o) => o === correct);
+      return {
+        quizId: newQuiz.id,
+        question: String(q.question || "").trim().slice(0, 1000),
+        options: shuffled,
+        correctAnswer: correctIndex >= 0 ? correctIndex : 0,
+        explanation: q.explanation ? String(q.explanation).trim().slice(0, 1000) : null,
+        order: idx,
+      };
+    });
+
+    if (transformed.length > 0) {
+      await db.insert(quizQuestions).values(transformed);
     }
 
     return NextResponse.json({ quiz: newQuiz }, { status: 201 });
   } catch (error) {
     console.error("Error generating quiz:", error);
-    return NextResponse.json(
-      { error: "Failed to generate quiz. Please try again." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to generate quiz" }, { status: 500 });
   }
 }

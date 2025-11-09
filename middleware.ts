@@ -1,20 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
- 
+
 export async function middleware(request: NextRequest) {
-	const session = await auth.api.getSession({
-		headers: await headers()
-	})
- 
-	if(!session) {
-		return NextResponse.redirect(new URL("/sign-in", request.url));
-	}
- 
-	return NextResponse.next();
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  if (!session) {
+    const redirectUrl = new URL("/sign-in", request.url);
+    redirectUrl.searchParams.set("redirect", request.nextUrl.pathname);
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  return NextResponse.next();
 }
- 
+
 export const config = {
-  runtime: "nodejs",
-  matcher: ["/dashboard", "/chat-tutor", "/profile", "/quizzes/create", "/quizzes/ai-generator", "/study-space/new"], // Apply middleware to specific routes
+  runtime: "edge",
+  matcher: [
+    "/dashboard",
+    "/chat-tutor",
+    "/profile",
+    "/quizzes/create",
+    "/quizzes/ai-generator",
+    "/study-space/new",
+  ],
 };

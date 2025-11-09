@@ -207,49 +207,6 @@ export default function SignUpPage() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Custom Keyframes Styles */}
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(30px, -30px) scale(1.05); }
-          50% { transform: translate(-20px, -50px) scale(0.95); }
-          75% { transform: translate(-40px, -20px) scale(1.02); }
-        }
-        
-        @keyframes gridSlide {
-          0% { background-position: 0 0; }
-          100% { background-position: 64px 64px; }
-        }
-        
-        @keyframes floatParticle {
-          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-          25% { transform: translate(20px, -40px) scale(1.5); opacity: 0.6; }
-          50% { transform: translate(-30px, -80px) scale(1); opacity: 0.4; }
-          75% { transform: translate(15px, -60px) scale(1.3); opacity: 0.7; }
-        }
-        
-        @keyframes shimmer {
-          0%, 100% { background-position: -200% center; }
-          50% { background-position: 200% center; }
-        }
-        
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes wiggle {
-          0%, 100% { transform: rotate(0deg); }
-          25% { transform: rotate(-5deg); }
-          75% { transform: rotate(5deg); }
-        }
-      `}</style>
     </div>
   );
 }
