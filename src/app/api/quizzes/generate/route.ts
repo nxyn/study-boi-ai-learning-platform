@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { topic, difficulty, questionCount, additionalInfo } = body || {};
+    const { topic, difficulty, questionCount, additionalInfo, isPublic } = body || {};
 
     if (!topic || typeof topic !== "string") {
       return NextResponse.json({ error: "Topic is required" }, { status: 400 });
@@ -102,7 +102,7 @@ Return ONLY valid JSON (no markdown) in this exact shape:
         subject: (typeof topic === "string" ? topic.toLowerCase() : "general").slice(0, 100),
         difficulty,
         createdBy: session.user.id,
-        isPublic: false,
+        isPublic: Boolean(isPublic),
         createdAt: now,
         updatedAt: now,
       })

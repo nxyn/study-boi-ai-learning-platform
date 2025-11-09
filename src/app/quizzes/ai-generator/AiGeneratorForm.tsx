@@ -19,6 +19,7 @@ export const AiGeneratorForm = () => {
   const [questionCount, setQuestionCount] = useState<number>(10);
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isPublic, setIsPublic] = useState<boolean>(true);
 
   useEffect(() => {
     // If not loading session and user missing, redirect (middleware also guards, this is UX safety)
@@ -49,7 +50,7 @@ export const AiGeneratorForm = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token ?? ""}`,
         },
-        body: JSON.stringify({ topic: topic.trim(), difficulty, questionCount: count, additionalInfo }),
+        body: JSON.stringify({ topic: topic.trim(), difficulty, questionCount: count, additionalInfo, isPublic }),
       });
 
       const data = await res.json();
@@ -118,6 +119,16 @@ export const AiGeneratorForm = () => {
             onChange={(e) => setAdditionalInfo(e.target.value)}
             className="mt-2 bg-black/40 border-purple-400/30 focus-visible:ring-purple-500 min-h-28"
           />
+        </div>
+        <div className="sm:col-span-2 flex items-center gap-3">
+          <input
+            id="isPublic"
+            type="checkbox"
+            checked={isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
+            className="h-4 w-4 rounded border-purple-400/40 bg-black/40 text-purple-600 focus:ring-purple-500"
+          />
+          <Label htmlFor="isPublic" className="text-purple-200 select-none">Publish to public</Label>
         </div>
       </div>
 
