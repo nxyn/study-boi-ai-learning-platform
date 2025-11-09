@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 - Difficulty level: ${difficulty}.
 - Each question must include exactly 4 options (A-D), with one clearly correct option.
 - Provide a short explanation for each answer.
-
+${additionalInfo ? `\nAdditional instructions from the teacher/student: ${additionalInfo}\n` : ""}
 Return ONLY valid JSON (no markdown) in this exact shape:
 {
   "title": "Quiz title",
