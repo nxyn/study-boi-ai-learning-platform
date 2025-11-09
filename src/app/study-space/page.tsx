@@ -14,13 +14,14 @@ interface Discussion {
   id: number;
   title: string;
   content: string;
-  user_id: string;
-  user_name: string;
-  user_grade: string;
-  image_url: string | null;
-  likes_count: number;
-  replies_count: number;
-  created_at: string;
+  subject: string;
+  imageUrl: string | null;
+  createdBy: string;
+  likes: number;
+  createdAt: string;
+  updatedAt: string;
+  creatorName: string;
+  replyCount: number;
 }
 
 export default function StudySpacePage() {
@@ -179,12 +180,12 @@ export default function StudySpacePage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="font-bold text-purple-200">{discussion.user_name}</span>
+                            <span className="font-bold text-purple-200">{discussion.creatorName}</span>
                             <span className="px-2 py-0.5 rounded-lg text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-400/40">
-                              Grade {discussion.user_grade}
+                              {discussion.subject}
                             </span>
                             <span className="text-sm text-purple-300/60">
-                              {formatDistanceToNow(new Date(discussion.created_at), { addSuffix: true })}
+                              {formatDistanceToNow(new Date(discussion.createdAt), { addSuffix: true })}
                             </span>
                           </div>
                           <CardTitle className="text-xl font-black text-white mb-2 group-hover:text-purple-200 transition-colors">
@@ -195,10 +196,10 @@ export default function StudySpacePage() {
                           </CardDescription>
                         </div>
                       </div>
-                      {discussion.image_url && (
+                      {discussion.imageUrl && (
                         <div className="mt-4 rounded-xl overflow-hidden border-2 border-purple-400/30 shadow-lg">
                           <img 
-                            src={discussion.image_url} 
+                            src={discussion.imageUrl} 
                             alt="Discussion" 
                             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                           />
@@ -209,11 +210,11 @@ export default function StudySpacePage() {
                       <div className="flex items-center gap-6 text-sm text-purple-300/70">
                         <div className="flex items-center gap-2">
                           <ThumbsUp className="h-4 w-4" />
-                          <span className="font-medium">{discussion.likes_count} likes</span>
+                          <span className="font-medium">{discussion.likes} likes</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <MessageCircle className="h-4 w-4" />
-                          <span className="font-medium">{discussion.replies_count} replies</span>
+                          <span className="font-medium">{discussion.replyCount} replies</span>
                         </div>
                       </div>
                     </CardContent>
@@ -243,49 +244,6 @@ export default function StudySpacePage() {
           </div>
         </div>
       </div>
-
-      {/* Custom Keyframes Styles */}
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(30px, -30px) scale(1.05); }
-          50% { transform: translate(-20px, -50px) scale(0.95); }
-          75% { transform: translate(-40px, -20px) scale(1.02); }
-        }
-        
-        @keyframes gridSlide {
-          0% { background-position: 0 0; }
-          100% { background-position: 64px 64px; }
-        }
-        
-        @keyframes floatParticle {
-          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-          25% { transform: translate(20px, -40px) scale(1.5); opacity: 0.6; }
-          50% { transform: translate(-30px, -80px) scale(1); opacity: 0.4; }
-          75% { transform: translate(15px, -60px) scale(1.3); opacity: 0.7; }
-        }
-        
-        @keyframes shimmer {
-          0%, 100% { background-position: -200% center; }
-          50% { background-position: 200% center; }
-        }
-        
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes wiggle {
-          0%, 100% { transform: rotate(0deg); }
-          25% { transform: rotate(-5deg); }
-          75% { transform: rotate(5deg); }
-        }
-      `}</style>
     </>
   );
 }

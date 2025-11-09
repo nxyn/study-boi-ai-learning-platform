@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { Navigation } from "@/components/navigation";
@@ -18,6 +18,53 @@ export default function DashboardPage() {
       router.push("/sign-in");
     }
   }, [session, isPending, router]);
+
+  // Fetch user stats from DB-backed APIs
+  const [quizCount, setQuizCount] = useState<number>(0);
+  const [avgScore, setAvgScore] = useState<number | null>(null);
+  const [achievementsCount, setAchievementsCount] = useState<number>(0);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const token = localStorage.getItem("bearer_token");
+        const headers: HeadersInit = {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        };
+
+        const [attemptsRes, achievementsRes] = await Promise.all([
+          fetch("/api/quiz-attempts", { headers }),
+          fetch("/api/achievements", { headers }),
+        ]);
+
+        if (attemptsRes.ok) {
+          const data = await attemptsRes.json();
+          const attempts = Array.isArray(data?.attempts) ? data.attempts : [];
+          setQuizCount(attempts.length);
+          if (attempts.length > 0) {
+            const avg = Math.round(
+              (attempts.reduce((acc: number, a: any) => acc + (a.totalQuestions ? (a.score / a.totalQuestions) * 100 : 0), 0) /
+                attempts.length)
+            );
+            setAvgScore(Number.isFinite(avg) ? avg : 0);
+          } else {
+            setAvgScore(null);
+          }
+        }
+
+        if (achievementsRes.ok) {
+          const achievements = await achievementsRes.json();
+          setAchievementsCount(Array.isArray(achievements) ? achievements.length : 0);
+        }
+      } catch (e) {
+        // Swallow errors to avoid breaking the dashboard UI
+        console.error("Failed to load stats", e);
+      }
+    };
+
+    if (session?.user) loadStats();
+  }, [session]);
 
   if (isPending || !session?.user) {
     return (
@@ -49,6 +96,13 @@ export default function DashboardPage() {
       href: "/study-space",
       gradient: "from-green-500 to-green-700"
     }
+  ];
+
+  // Dynamic stats bound to DB
+  const dashboardStats = [
+    { title: "Quizzes Taken", value: String(quizCount), icon: FileQuestion, delay: 0 },
+    { title: "Average Score", value: avgScore !== null ? `${avgScore}%` : "-", icon: TrendingUp, delay: 0.1 },
+    { title: "Achievements", value: String(achievementsCount), icon: Award, delay: 0.2 }
   ];
 
   return (
@@ -88,39 +142,39 @@ export default function DashboardPage() {
         </div>
         
         <div className="relative">
-          <div className="relative max-w-7xl mx-auto px-6 py-16">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16">
             {/* Welcome Section - Billionaire Style with Animation */}
-            <div className="mb-16 relative animate-[fadeInUp_0.8s_ease-out]">
+            <div className="mb-8 sm:mb-12 md:mb-16 relative animate-[fadeInUp_0.8s_ease-out]">
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-br from-purple-500/30 to-transparent rounded-full blur-3xl animate-pulse" />
-              <h1 className="text-6xl font-black mb-4 bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl animate-[shimmer_3s_ease-in-out_infinite]">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black mb-2 sm:mb-4 bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl animate-[shimmer_3s_ease-in-out_infinite]">
                 Welcome back, {session.user.name}!
               </h1>
-              <p className="text-2xl text-purple-200/80 font-medium animate-[fadeIn_1s_ease-out_0.3s_both]">
+              <p className="text-base sm:text-xl md:text-2xl text-purple-200/80 font-medium animate-[fadeIn_1s_ease-out_0.3s_both]">
                 Ready to continue your learning journey?
               </p>
             </div>
 
             {/* Quick Actions - Museum Quality with Staggered Animation */}
-            <div className="grid gap-8 md:grid-cols-3 mb-16">
+            <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mb-8 sm:mb-12 md:mb-16">
               {quickActions.map((action, index) => {
                 const Icon = action.icon;
                 return (
                   <Link key={index} href={action.href}>
                     <Card 
-                      className="relative group border-2 border-purple-400/30 hover:border-purple-400/60 transition-all duration-500 hover:scale-110 hover:-translate-y-2 bg-gradient-to-br from-black/50 via-purple-950/30 to-black/50 backdrop-blur-2xl rounded-3xl shadow-2xl hover:shadow-[0_30px_100px_rgba(139,92,246,0.6)] h-full cursor-pointer overflow-hidden animate-[fadeInUp_0.6s_ease-out_both]"
+                      className="relative group border-2 border-purple-400/30 hover:border-purple-400/60 transition-all duration-500 hover:scale-105 sm:hover:scale-110 hover:-translate-y-1 sm:hover:-translate-y-2 bg-gradient-to-br from-black/50 via-purple-950/30 to-black/50 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-2xl hover:shadow-[0_30px_100px_rgba(139,92,246,0.6)] h-full cursor-pointer overflow-hidden animate-[fadeInUp_0.6s_ease-out_both]"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-purple-400/30 to-purple-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl animate-[shimmerSweep_2s_ease-in-out_infinite]" />
                       
-                      <CardContent className="relative pt-10 pb-10">
-                        <div className="relative inline-block mb-6 animate-[bounce_2s_ease-in-out_infinite]" style={{ animationDelay: `${index * 0.3}s` }}>
+                      <CardContent className="relative pt-6 sm:pt-8 md:pt-10 pb-6 sm:pb-8 md:pb-10">
+                        <div className="relative inline-block mb-4 sm:mb-6 animate-[bounce_2s_ease-in-out_infinite]" style={{ animationDelay: `${index * 0.3}s` }}>
                           <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-700 blur-2xl opacity-70 rounded-2xl scale-125 animate-pulse" />
-                          <div className={`relative h-20 w-20 rounded-2xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shadow-2xl shadow-purple-500/50 border-2 border-white/20 group-hover:rotate-12 transition-transform duration-500`}>
-                            <Icon className="h-10 w-10 text-white drop-shadow-lg" />
+                          <div className={`relative h-16 w-16 sm:h-20 sm:w-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shadow-2xl shadow-purple-500/50 border-2 border-white/20 group-hover:rotate-12 transition-transform duration-500`}>
+                            <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-white drop-shadow-lg" />
                           </div>
                         </div>
-                        <h3 className="text-2xl font-black mb-3 text-white drop-shadow-lg group-hover:scale-105 transition-transform duration-300">{action.title}</h3>
-                        <p className="text-lg text-purple-200/70 font-medium">{action.description}</p>
+                        <h3 className="text-xl sm:text-2xl font-black mb-2 sm:mb-3 text-white drop-shadow-lg group-hover:scale-105 transition-transform duration-300">{action.title}</h3>
+                        <p className="text-sm sm:text-base md:text-lg text-purple-200/70 font-medium">{action.description}</p>
                       </CardContent>
                     </Card>
                   </Link>
@@ -129,29 +183,25 @@ export default function DashboardPage() {
             </div>
 
             {/* Stats Grid - Ultra Luxurious with Animations */}
-            <div className="grid gap-8 md:grid-cols-3 mb-16">
-              {[
-                { title: "Quizzes Taken", value: "0", icon: FileQuestion, delay: 0 },
-                { title: "Average Score", value: "-", icon: TrendingUp, delay: 0.1 },
-                { title: "Achievements", value: "0", icon: Award, delay: 0.2 }
-              ].map((stat, index) => (
+            <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-3 mb-8 sm:mb-12 md:mb-16">
+              {dashboardStats.map((stat, index) => (
                 <Card 
                   key={index}
-                  className="relative group bg-gradient-to-br from-white/[0.08] via-purple-500/[0.05] to-transparent backdrop-blur-2xl border-2 border-purple-400/30 rounded-3xl shadow-[0_8px_32px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_80px_rgba(139,92,246,0.7)] transition-all duration-500 hover:scale-110 hover:-rotate-1 overflow-hidden animate-[fadeInUp_0.6s_ease-out_both]"
+                  className="relative group bg-gradient-to-br from-white/[0.08] via-purple-500/[0.05] to-transparent backdrop-blur-2xl border-2 border-purple-400/30 rounded-2xl sm:rounded-3xl shadow-[0_8px_32px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_80px_rgba(139,92,246,0.7)] transition-all duration-500 hover:scale-105 sm:hover:scale-110 hover:-rotate-1 overflow-hidden animate-[fadeInUp_0.6s_ease-out_both]"
                   style={{ animationDelay: `${stat.delay}s` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                  <CardHeader className="relative flex flex-row items-center justify-between pb-4">
-                    <CardTitle className="text-lg font-bold text-purple-200/90">
+                  <CardHeader className="relative flex flex-row items-center justify-between pb-3 sm:pb-4">
+                    <CardTitle className="text-sm sm:text-base md:text-lg font-bold text-purple-200/90">
                       {stat.title}
                     </CardTitle>
-                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600/30 to-purple-800/30 backdrop-blur-xl flex items-center justify-center border border-purple-400/40 shadow-lg shadow-purple-500/30 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
-                      <stat.icon className="h-6 w-6 text-purple-300" />
+                    <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-purple-600/30 to-purple-800/30 backdrop-blur-xl flex items-center justify-center border border-purple-400/40 shadow-lg shadow-purple-500/30 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
+                      <stat.icon className="h-5 w-5 sm:h-6 sm:w-6 text-purple-300" />
                     </div>
                   </CardHeader>
                   <CardContent className="relative">
-                    <div className="text-5xl font-black mb-2 bg-gradient-to-br from-white via-purple-200 to-purple-400 bg-clip-text text-transparent animate-[pulse_2s_ease-in-out_infinite]">{stat.value}</div>
-                    <p className="text-sm text-purple-300/80 font-medium">
+                    <div className="text-4xl sm:text-5xl font-black mb-2 bg-gradient-to-br from-white via-purple-200 to-purple-400 bg-clip-text text-transparent animate-[pulse_2s_ease-in-out_infinite]">{stat.value}</div>
+                    <p className="text-xs sm:text-sm text-purple-300/80 font-medium">
                       {index === 0 && "Start taking quizzes to see your progress"}
                       {index === 1 && "Complete quizzes to track your performance"}
                       {index === 2 && "Unlock achievements as you learn"}
@@ -162,31 +212,31 @@ export default function DashboardPage() {
             </div>
 
             {/* Featured Section - Premium with Animation */}
-            <Card className="relative border-2 border-purple-400/40 bg-gradient-to-br from-purple-950/40 via-black/60 to-purple-900/40 backdrop-blur-2xl rounded-3xl shadow-[0_20px_80px_rgba(139,92,246,0.6)] overflow-hidden hover:scale-[1.02] transition-all duration-500 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
-              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-purple-500/40 via-purple-600/20 to-transparent rounded-full blur-[128px] animate-[float_15s_ease-in-out_infinite]" />
+            <Card className="relative border-2 border-purple-400/40 bg-gradient-to-br from-purple-950/40 via-black/60 to-purple-900/40 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-[0_20px_80px_rgba(139,92,246,0.6)] overflow-hidden hover:scale-[1.01] transition-all duration-500 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
+              <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-br from-purple-500/40 via-purple-600/20 to-transparent rounded-full blur-[80px] sm:blur-[128px] animate-[float_15s_ease-in-out_infinite]" />
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
               
-              <CardContent className="relative pt-12 pb-12 z-10">
-                <div className="flex items-start gap-6">
-                  <div className="relative inline-flex items-center justify-center animate-[bounce_3s_ease-in-out_infinite]">
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-700 blur-2xl opacity-70 rounded-full scale-150 animate-pulse" />
-                    <div className="relative h-20 w-20 rounded-2xl bg-gradient-to-br from-purple-600/40 to-purple-800/40 backdrop-blur-xl flex items-center justify-center border-2 border-purple-400/40 shadow-2xl shadow-purple-500/50 flex-shrink-0">
-                      <Sparkles className="h-10 w-10 text-purple-300 animate-[spin_4s_linear_infinite]" />
+              <CardContent className="relative pt-8 sm:pt-10 md:pt-12 pb-8 sm:pb-10 md:pb-12 z-10">
+                <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                  <div className="relative inline-flex items-center justify-center animate-[bounce_3s_ease-in-out_infinite] mx-auto sm:mx-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-700 blur-xl sm:blur-2xl opacity-70 rounded-full scale-150 animate-pulse" />
+                    <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-600/40 to-purple-800/40 backdrop-blur-xl flex items-center justify-center border-2 border-purple-400/40 shadow-2xl shadow-purple-500/50 flex-shrink-0">
+                      <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 text-purple-300 animate-[spin_4s_linear_infinite]" />
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-4xl font-black mb-4 text-white drop-shadow-lg animate-[shimmer_3s_ease-in-out_infinite]">New to Study Boi?</h3>
-                    <p className="text-xl text-purple-200/80 mb-6 leading-relaxed font-medium">
+                  <div className="flex-1 text-center sm:text-left">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 sm:mb-4 text-white drop-shadow-lg animate-[shimmer_3s_ease-in-out_infinite]">New to Study Boi?</h3>
+                    <p className="text-base sm:text-lg md:text-xl text-purple-200/80 mb-4 sm:mb-6 leading-relaxed font-medium">
                       Start with AI Tutor to get personalized help, or browse quizzes to practice what you've learned. Join Study Space to connect with other students!
                     </p>
                     <Button
                       asChild
-                      className="relative group bg-gradient-to-r from-purple-600 via-purple-500 to-purple-700 hover:from-purple-700 hover:via-purple-600 hover:to-purple-800 text-lg px-8 py-6 shadow-xl shadow-purple-500/50 border-2 border-purple-400/30 transition-all duration-300 hover:scale-110 hover:-translate-y-1 rounded-xl"
+                      className="relative group bg-gradient-to-r from-purple-600 via-purple-500 to-purple-700 hover:from-purple-700 hover:via-purple-600 hover:to-purple-800 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 shadow-xl shadow-purple-500/50 border-2 border-purple-400/30 transition-all duration-300 hover:scale-105 sm:hover:scale-110 hover:-translate-y-1 rounded-xl w-full sm:w-auto"
                     >
                       <Link href="/chat-tutor">
-                        <span className="relative z-10 flex items-center gap-2 font-bold">
+                        <span className="relative z-10 flex items-center justify-center gap-2 font-bold">
                           Get Started with AI Tutor
-                          <MessageSquare className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+                          <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-12 transition-transform duration-300" />
                         </span>
                         <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-white/30 to-purple-400/0 opacity-0 group-hover:opacity-100 transition-opacity blur-xl animate-[shimmerSweep_1.5s_ease-in-out_infinite]" />
                       </Link>
@@ -198,48 +248,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-
-      {/* Custom Keyframes Styles */}
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(30px, -30px) scale(1.05); }
-          50% { transform: translate(-20px, -50px) scale(0.95); }
-          75% { transform: translate(-40px, -20px) scale(1.02); }
-        }
-        
-        @keyframes gridSlide {
-          0% { background-position: 0 0; }
-          100% { background-position: 64px 64px; }
-        }
-        
-        @keyframes floatParticle {
-          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-          25% { transform: translate(20px, -40px) scale(1.5); opacity: 0.6; }
-          50% { transform: translate(-30px, -80px) scale(1); opacity: 0.4; }
-          75% { transform: translate(15px, -60px) scale(1.3); opacity: 0.7; }
-        }
-        
-        @keyframes shimmer {
-          0%, 100% { background-position: -200% center; }
-          50% { background-position: 200% center; }
-        }
-        
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
     </>
   );
 }
