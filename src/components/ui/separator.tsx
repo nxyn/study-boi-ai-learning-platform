@@ -5,6 +5,12 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A separator.
+ * @param {React.ComponentProps<typeof SeparatorPrimitive.Root>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"horizontal" | "vertical"} [props.orientation="horizontal"] - The orientation of the separator.
+ */
 function Separator({
   className,
   orientation = "horizontal",

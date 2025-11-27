@@ -24,6 +24,10 @@ interface Discussion {
   replyCount: number;
 }
 
+/**
+ * The main page for the study space.
+ * It displays a list of discussions and allows users to create new ones.
+ */
 export default function StudySpacePage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();

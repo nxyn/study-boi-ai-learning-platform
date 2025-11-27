@@ -7,6 +7,12 @@ import { headers } from "next/headers";
 
 const VALID_DIFFICULTIES = ['easy', 'medium', 'hard'];
 
+/**
+ * Handles GET requests to `/api/quizzes`.
+ * Fetches a list of public quizzes, with optional filtering by subject, difficulty, and search term.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the list of quizzes or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -70,6 +76,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Handles POST requests to `/api/quizzes`.
+ * Creates a new quiz.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new quiz or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

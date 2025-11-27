@@ -7,6 +7,12 @@ import { headers } from "next/headers";
 
 const VALID_TYPES = ['quiz_master', 'discussion_starter', 'helpful_peer'];
 
+/**
+ * Handles GET requests to `/api/achievements`.
+ * Fetches the achievements for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the user's achievements or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -29,6 +35,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Handles POST requests to `/api/achievements`.
+ * Creates a new achievement for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new achievement or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

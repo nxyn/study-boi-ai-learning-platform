@@ -5,6 +5,11 @@ import * as LabelPrimitive from "@radix-ui/react-label"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A label for a form element.
+ * @param {React.ComponentProps<typeof LabelPrimitive.Root>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function Label({
   className,
   ...props

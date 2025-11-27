@@ -35,6 +35,14 @@ const buttonVariants = cva(
   }
 )
 
+/**
+ * A button component.
+ * @param {React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean }} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"} [props.variant] - The variant of the button.
+ * @param {"default" | "sm" | "lg" | "icon"} [props.size] - The size of the button.
+ * @param {boolean} [props.asChild] - Whether to render the component as a child of another component.
+ */
 function Button({
   className,
   variant,

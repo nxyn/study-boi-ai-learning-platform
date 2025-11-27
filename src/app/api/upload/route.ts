@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles POST requests to `/api/upload`.
+ * Uploads an image and returns a data URL.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the data URL of the uploaded image or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

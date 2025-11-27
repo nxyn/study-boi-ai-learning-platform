@@ -3,6 +3,10 @@
 import { createAuthClient } from "better-auth/react"
 import { useEffect, useState } from "react"
 
+/**
+ * The client-side authentication client for `better-auth`.
+ * It's configured to use the current window's origin as the base URL and to handle bearer token authentication.
+ */
 export const authClient = createAuthClient({
    baseURL: typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_SITE_URL,
   fetchOptions: {
@@ -21,6 +25,11 @@ export const authClient = createAuthClient({
 
 type SessionData = ReturnType<typeof authClient.useSession>
 
+/**
+ * A custom React hook for managing user sessions on the client side.
+ * It provides the session data, a pending state, an error state, and a function to refetch the session.
+ * @returns {SessionData} An object containing the session data, pending state, error state, and a refetch function.
+ */
 export function useSession(): SessionData {
    const [session, setSession] = useState<any>(null);
    const [isPending, setIsPending] = useState(true);

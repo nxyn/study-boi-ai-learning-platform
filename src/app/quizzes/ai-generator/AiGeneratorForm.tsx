@@ -10,6 +10,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useSession } from "@/lib/auth-client";
 import { toast } from "sonner";
 
+/**
+ * A form for generating a quiz using the AI.
+ * It allows the user to specify the topic, difficulty, number of questions, and additional information.
+ */
 export const AiGeneratorForm = () => {
   const router = useRouter();
   const { data: session, isPending } = useSession();

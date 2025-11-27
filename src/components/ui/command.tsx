@@ -13,6 +13,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
+/**
+ * A command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function Command({
   className,
   ...props
@@ -29,6 +34,10 @@ function Command({
   )
 }
 
+/**
+ * A command menu in a dialog.
+ * @param {React.ComponentProps<typeof Dialog> & { title?: string; description?: string; className?: string; showCloseButton?: boolean }} props - The props for the component.
+ */
 function CommandDialog({
   title = "Command Palette",
   description = "Search for a command to run...",
@@ -60,6 +69,11 @@ function CommandDialog({
   )
 }
 
+/**
+ * The input for the command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive.Input>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CommandInput({
   className,
   ...props
@@ -82,6 +96,11 @@ function CommandInput({
   )
 }
 
+/**
+ * The list of items in the command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive.List>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CommandList({
   className,
   ...props
@@ -98,6 +117,10 @@ function CommandList({
   )
 }
 
+/**
+ * The empty state for the command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive.Empty>} props - The props for the component.
+ */
 function CommandEmpty({
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Empty>) {
@@ -110,6 +133,11 @@ function CommandEmpty({
   )
 }
 
+/**
+ * A group of items in the command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive.Group>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CommandGroup({
   className,
   ...props
@@ -126,6 +154,11 @@ function CommandGroup({
   )
 }
 
+/**
+ * A separator between groups in the command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive.Separator>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CommandSeparator({
   className,
   ...props
@@ -139,6 +172,11 @@ function CommandSeparator({
   )
 }
 
+/**
+ * An item in the command menu.
+ * @param {React.ComponentProps<typeof CommandPrimitive.Item>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CommandItem({
   className,
   ...props
@@ -155,6 +193,11 @@ function CommandItem({
   )
 }
 
+/**
+ * A shortcut for a command item.
+ * @param {React.ComponentProps<"span">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CommandShortcut({
   className,
   ...props

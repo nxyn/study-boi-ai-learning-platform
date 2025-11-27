@@ -5,6 +5,12 @@ import { eq, desc } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/quizzes/my`.
+ * Fetches the quizzes created by the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the user's quizzes or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

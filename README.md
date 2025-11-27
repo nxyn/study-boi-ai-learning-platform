@@ -1,31 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI-Powered Learning Platform
+
+This is a Next.js project bootstrapped with `create-next-app`, designed to be an AI-powered learning platform. It offers a suite of tools to help users learn and study more effectively, including a chat tutor, quiz generation, and a dedicated study space.
+
+## Features
+
+*   **Chat Tutor:** An interactive AI-powered tutor that can answer questions and provide explanations on a variety of subjects.
+*   **Quizzes:** Generate quizzes on-demand to test your knowledge and track your progress.
+*   **Study Space:** A dedicated space to focus on your studies, with integrated tools to help you stay organized and motivated.
+*   **User Authentication:** Secure user authentication and profile management.
+*   **Dashboard:** A personalized dashboard to track your learning progress and access your study materials.
 
 ## Getting Started
 
-First, run the development server:
+First, you need to set up your environment variables. Create a `.env` file in the root of the project and add the necessary environment variables. You can use the `.env.example` file as a template.
+
+Next, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*   [Next.js](https://nextjs.org/) - React framework for building server-side rendered and static websites.
+*   [TypeScript](https://www.typescriptlang.org/) - A typed superset of JavaScript that compiles to plain JavaScript.
+*   [Drizzle ORM](https://orm.drizzle.team/) - A TypeScript ORM for SQL databases.
+*   [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapid UI development.
+*   [NextAuth.js](https://next-auth.js.org/) - Authentication for Next.js applications.
 
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+*   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 

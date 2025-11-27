@@ -6,12 +6,21 @@ import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A vertically stacked set of interactive headings that each reveal a section of content.
+ * @param {React.ComponentProps<typeof AccordionPrimitive.Root>} props - The props for the component.
+ */
 function Accordion({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />
 }
 
+/**
+ * An item within the accordion.
+ * @param {React.ComponentProps<typeof AccordionPrimitive.Item>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function AccordionItem({
   className,
   ...props
@@ -25,6 +34,12 @@ function AccordionItem({
   )
 }
 
+/**
+ * The trigger that toggles the accordion item's content.
+ * @param {React.ComponentProps<typeof AccordionPrimitive.Trigger>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {React.ReactNode} [props.children] - The content of the trigger.
+ */
 function AccordionTrigger({
   className,
   children,
@@ -47,6 +62,12 @@ function AccordionTrigger({
   )
 }
 
+/**
+ * The content of an accordion item.
+ * @param {React.ComponentProps<typeof AccordionPrimitive.Content>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {React.ReactNode} [props.children] - The content of the accordion item.
+ */
 function AccordionContent({
   className,
   children,

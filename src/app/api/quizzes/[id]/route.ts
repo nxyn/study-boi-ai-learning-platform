@@ -7,6 +7,13 @@ import { headers } from "next/headers";
 
 const VALID_DIFFICULTIES = ['easy', 'medium', 'hard'];
 
+/**
+ * Handles GET requests to `/api/quizzes/[id]`.
+ * Fetches a specific quiz and its questions.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response containing the quiz and its questions, or an error message.
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -63,6 +70,13 @@ export async function GET(
   }
 }
 
+/**
+ * Handles PUT requests to `/api/quizzes/[id]`.
+ * Updates a specific quiz.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response containing the updated quiz or an error message.
+ */
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -132,6 +146,13 @@ export async function PUT(
   }
 }
 
+/**
+ * Handles DELETE requests to `/api/quizzes/[id]`.
+ * Deletes a specific quiz.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response confirming the deletion or an error message.
+ */
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }

@@ -8,6 +8,10 @@ import { useSession, authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useState } from "react";
 
+/**
+ * The main navigation component for the application.
+ * It displays a list of links to different pages and handles user authentication.
+ */
 export const Navigation = () => {
   const pathname = usePathname();
   const router = useRouter();

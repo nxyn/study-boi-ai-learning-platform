@@ -4,10 +4,19 @@ import { ChevronRight, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A navigation component that shows the user's location in a hierarchy.
+ * @param {React.ComponentProps<"nav">} props - The props for the component.
+ */
 function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />
 }
 
+/**
+ * The list of items in the breadcrumb.
+ * @param {React.ComponentProps<"ol">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
   return (
     <ol
@@ -21,6 +30,11 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
   )
 }
 
+/**
+ * An item in the breadcrumb list.
+ * @param {React.ComponentProps<"li">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
   return (
     <li
@@ -31,6 +45,12 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
   )
 }
 
+/**
+ * A link in the breadcrumb.
+ * @param {React.ComponentProps<"a"> & { asChild?: boolean }} props - The props for the component.
+ * @param {boolean} [props.asChild] - Whether to render the component as a child of another component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function BreadcrumbLink({
   asChild,
   className,
@@ -49,6 +69,11 @@ function BreadcrumbLink({
   )
 }
 
+/**
+ * The current page in the breadcrumb.
+ * @param {React.ComponentProps<"span">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
@@ -62,6 +87,12 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
   )
 }
 
+/**
+ * The separator between breadcrumb items.
+ * @param {React.ComponentProps<"li">} props - The props for the component.
+ * @param {React.ReactNode} [props.children] - The content of the separator.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function BreadcrumbSeparator({
   children,
   className,
@@ -80,6 +111,11 @@ function BreadcrumbSeparator({
   )
 }
 
+/**
+ * An ellipsis to indicate that there are more breadcrumb items.
+ * @param {React.ComponentProps<"span">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function BreadcrumbEllipsis({
   className,
   ...props

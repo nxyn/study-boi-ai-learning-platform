@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
+/**
+ * A splash screen component that is displayed when the application is loading.
+ */
 export default function SplashScreen() {
   return (
     <motion.div

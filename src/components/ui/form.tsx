@@ -29,6 +29,10 @@ const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue
 )
 
+/**
+ * A form field component that integrates with `react-hook-form`.
+ * @param {ControllerProps<TFieldValues, TName>} props - The props for the component.
+ */
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
@@ -42,6 +46,10 @@ const FormField = <
   )
 }
 
+/**
+ * A hook to access the form field's context.
+ * @returns {object} The form field's context.
+ */
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
@@ -73,6 +81,11 @@ const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue
 )
 
+/**
+ * A form item.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   const id = React.useId()
 
@@ -87,6 +100,11 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The label for a form item.
+ * @param {React.ComponentProps<typeof LabelPrimitive.Root>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function FormLabel({
   className,
   ...props
@@ -104,6 +122,10 @@ function FormLabel({
   )
 }
 
+/**
+ * The control for a form item.
+ * @param {React.ComponentProps<typeof Slot>} props - The props for the component.
+ */
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
@@ -122,6 +144,11 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
   )
 }
 
+/**
+ * The description for a form item.
+ * @param {React.ComponentProps<"p">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   const { formDescriptionId } = useFormField()
 
@@ -135,6 +162,11 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   )
 }
 
+/**
+ * The message for a form item.
+ * @param {React.ComponentProps<"p">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message ?? "") : props.children

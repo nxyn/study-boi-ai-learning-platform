@@ -19,6 +19,12 @@ const alertVariants = cva(
   }
 )
 
+/**
+ * Displays a callout for user attention.
+ * @param {React.ComponentProps<"div"> & VariantProps<typeof alertVariants>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"default" | "destructive"} [props.variant] - The variant of the alert.
+ */
 function Alert({
   className,
   variant,
@@ -34,6 +40,11 @@ function Alert({
   )
 }
 
+/**
+ * The title of the alert.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -47,6 +58,11 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The description of the alert.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function AlertDescription({
   className,
   ...props

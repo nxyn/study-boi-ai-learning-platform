@@ -5,6 +5,12 @@ import { eq, and } from 'drizzle-orm';
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/progress`.
+ * Fetches the study progress for the authenticated user, with optional filtering by subject.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the study progress or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -32,6 +38,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Handles POST requests to `/api/progress`.
+ * Creates or updates a study progress entry for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new or updated study progress entry, or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -102,6 +114,12 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * Handles PUT requests to `/api/progress`.
+ * Updates a specific study progress entry for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the updated study progress entry or an error message.
+ */
 export async function PUT(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -172,6 +190,12 @@ export async function PUT(request: NextRequest) {
   }
 }
 
+/**
+ * Handles DELETE requests to `/api/progress`.
+ * Deletes a specific study progress entry for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response confirming the deletion or an error message.
+ */
 export async function DELETE(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

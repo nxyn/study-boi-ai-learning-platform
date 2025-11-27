@@ -5,6 +5,10 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A tabs component.
+ * @param {React.ComponentProps<typeof TabsPrimitive.Root>} props - The props for the component.
+ */
 function Tabs({
   className,
   ...props
@@ -18,6 +22,10 @@ function Tabs({
   )
 }
 
+/**
+ * The list of tabs.
+ * @param {React.ComponentProps<typeof TabsPrimitive.List>} props - The props for the component.
+ */
 function TabsList({
   className,
   ...props
@@ -34,6 +42,10 @@ function TabsList({
   )
 }
 
+/**
+ * The trigger for a tab.
+ * @param {React.ComponentProps<typeof TabsPrimitive.Trigger>} props - The props for the component.
+ */
 function TabsTrigger({
   className,
   ...props
@@ -50,6 +62,10 @@ function TabsTrigger({
   )
 }
 
+/**
+ * The content of a tab.
+ * @param {React.ComponentProps<typeof TabsPrimitive.Content>} props - The props for the component.
+ */
 function TabsContent({
   className,
   ...props

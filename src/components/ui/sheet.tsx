@@ -6,28 +6,48 @@ import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A sheet component.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Root>} props - The props for the component.
+ */
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
 }
 
+/**
+ * The trigger for the sheet.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Trigger>} props - The props for the component.
+ */
 function SheetTrigger({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
   return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />
 }
 
+/**
+ * The close button for the sheet.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Close>} props - The props for the component.
+ */
 function SheetClose({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Close>) {
   return <SheetPrimitive.Close data-slot="sheet-close" {...props} />
 }
 
+/**
+ * Portals the sheet content to the body of the document.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Portal>} props - The props for the component.
+ */
 function SheetPortal({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Portal>) {
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
 }
 
+/**
+ * The overlay for the sheet.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Overlay>} props - The props for the component.
+ */
 function SheetOverlay({
   className,
   ...props
@@ -44,6 +64,10 @@ function SheetOverlay({
   )
 }
 
+/**
+ * The content of the sheet.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Content> & { side?: "top" | "right" | "bottom" | "left" }} props - The props for the component.
+ */
 function SheetContent({
   className,
   children,
@@ -81,6 +105,10 @@ function SheetContent({
   )
 }
 
+/**
+ * The header of the sheet.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -91,6 +119,10 @@ function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The footer of the sheet.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -101,6 +133,10 @@ function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The title of the sheet.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Title>} props - The props for the component.
+ */
 function SheetTitle({
   className,
   ...props
@@ -114,6 +150,10 @@ function SheetTitle({
   )
 }
 
+/**
+ * The description of the sheet.
+ * @param {React.ComponentProps<typeof SheetPrimitive.Description>} props - The props for the component.
+ */
 function SheetDescription({
   className,
   ...props

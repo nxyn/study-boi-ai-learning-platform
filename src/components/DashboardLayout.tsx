@@ -38,6 +38,12 @@ const navigation = [
   { name: "Study Space", href: "/study-space", icon: Users },
 ];
 
+/**
+ * The main layout for the dashboard.
+ * It includes a sidebar for navigation and a main content area.
+ * @param {DashboardLayoutProps} props - The props for the component.
+ * @param {React.ReactNode} props.children - The content to display in the main area.
+ */
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();

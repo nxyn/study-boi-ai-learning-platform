@@ -7,6 +7,12 @@ import { headers } from "next/headers";
 
 const VALID_DIFFICULTIES = ["easy", "medium", "hard"] as const;
 
+/**
+ * Handles POST requests to `/api/quizzes/generate`.
+ * Generates a new quiz using the Gemini API based on the provided topic, difficulty, and question count.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new quiz or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

@@ -8,6 +8,10 @@ import {
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 
+/**
+ * A pagination component.
+ * @param {React.ComponentProps<"nav">} props - The props for the component.
+ */
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
@@ -20,6 +24,10 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   )
 }
 
+/**
+ * The content of the pagination component.
+ * @param {React.ComponentProps<"ul">} props - The props for the component.
+ */
 function PaginationContent({
   className,
   ...props
@@ -33,6 +41,10 @@ function PaginationContent({
   )
 }
 
+/**
+ * An item in the pagination component.
+ * @param {React.ComponentProps<"li">} props - The props for the component.
+ */
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />
 }
@@ -42,6 +54,10 @@ type PaginationLinkProps = {
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
   React.ComponentProps<"a">
 
+/**
+ * A link in the pagination component.
+ * @param {PaginationLinkProps} props - The props for the component.
+ */
 function PaginationLink({
   className,
   isActive,
@@ -65,6 +81,10 @@ function PaginationLink({
   )
 }
 
+/**
+ * The "previous" button for the pagination component.
+ * @param {React.ComponentProps<typeof PaginationLink>} props - The props for the component.
+ */
 function PaginationPrevious({
   className,
   ...props
@@ -82,6 +102,10 @@ function PaginationPrevious({
   )
 }
 
+/**
+ * The "next" button for the pagination component.
+ * @param {React.ComponentProps<typeof PaginationLink>} props - The props for the component.
+ */
 function PaginationNext({
   className,
   ...props
@@ -99,6 +123,10 @@ function PaginationNext({
   )
 }
 
+/**
+ * An ellipsis for the pagination component.
+ * @param {React.ComponentProps<"span">} props - The props for the component.
+ */
 function PaginationEllipsis({
   className,
   ...props

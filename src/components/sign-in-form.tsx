@@ -12,6 +12,10 @@ import { authClient, useSession } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
+/**
+ * A sign-in form component.
+ * It handles user authentication and redirects to the dashboard on successful sign-in.
+ */
 export const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

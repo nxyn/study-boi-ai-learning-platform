@@ -44,6 +44,10 @@ type SidebarContextProps = {
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null)
 
+/**
+ * A hook to access the sidebar's context.
+ * @returns {SidebarContextProps} The sidebar's context.
+ */
 function useSidebar() {
   const context = React.useContext(SidebarContext)
   if (!context) {
@@ -53,6 +57,10 @@ function useSidebar() {
   return context
 }
 
+/**
+ * The provider for the sidebar component.
+ * @param {React.ComponentProps<"div"> & { defaultOpen?: boolean; open?: boolean; onOpenChange?: (open: boolean) => void }} props - The props for the component.
+ */
 function SidebarProvider({
   defaultOpen = true,
   open: openProp,
@@ -151,6 +159,10 @@ function SidebarProvider({
   )
 }
 
+/**
+ * The main sidebar component.
+ * @param {React.ComponentProps<"div"> & { side?: "left" | "right"; variant?: "sidebar" | "floating" | "inset"; collapsible?: "offcanvas" | "icon" | "none" }} props - The props for the component.
+ */
 function Sidebar({
   side = "left",
   variant = "sidebar",
@@ -253,6 +265,10 @@ function Sidebar({
   )
 }
 
+/**
+ * The trigger to toggle the sidebar.
+ * @param {React.ComponentProps<typeof Button>} props - The props for the component.
+ */
 function SidebarTrigger({
   className,
   onClick,
@@ -279,6 +295,10 @@ function SidebarTrigger({
   )
 }
 
+/**
+ * A rail to toggle the sidebar.
+ * @param {React.ComponentProps<"button">} props - The props for the component.
+ */
 function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
   const { toggleSidebar } = useSidebar()
 
@@ -304,6 +324,10 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
   )
 }
 
+/**
+ * The main content area that is inset when the sidebar is open.
+ * @param {React.ComponentProps<"main">} props - The props for the component.
+ */
 function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
   return (
     <main
@@ -318,6 +342,10 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
   )
 }
 
+/**
+ * An input component for the sidebar.
+ * @param {React.ComponentProps<typeof Input>} props - The props for the component.
+ */
 function SidebarInput({
   className,
   ...props
@@ -332,6 +360,10 @@ function SidebarInput({
   )
 }
 
+/**
+ * The header of the sidebar.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -343,6 +375,10 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The footer of the sidebar.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -354,6 +390,10 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * A separator for the sidebar.
+ * @param {React.ComponentProps<typeof Separator>} props - The props for the component.
+ */
 function SidebarSeparator({
   className,
   ...props
@@ -368,6 +408,10 @@ function SidebarSeparator({
   )
 }
 
+/**
+ * The main content of the sidebar.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -382,6 +426,10 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * A group of items in the sidebar.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -393,6 +441,10 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The label for a group of items in the sidebar.
+ * @param {React.ComponentProps<"div"> & { asChild?: boolean }} props - The props for the component.
+ */
 function SidebarGroupLabel({
   className,
   asChild = false,
@@ -414,6 +466,10 @@ function SidebarGroupLabel({
   )
 }
 
+/**
+ * An action for a group of items in the sidebar.
+ * @param {React.ComponentProps<"button"> & { asChild?: boolean }} props - The props for the component.
+ */
 function SidebarGroupAction({
   className,
   asChild = false,
@@ -437,6 +493,10 @@ function SidebarGroupAction({
   )
 }
 
+/**
+ * The content of a group of items in the sidebar.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SidebarGroupContent({
   className,
   ...props
@@ -451,6 +511,10 @@ function SidebarGroupContent({
   )
 }
 
+/**
+ * A menu in the sidebar.
+ * @param {React.ComponentProps<"ul">} props - The props for the component.
+ */
 function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
@@ -462,6 +526,10 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
   )
 }
 
+/**
+ * An item in the sidebar menu.
+ * @param {React.ComponentProps<"li">} props - The props for the component.
+ */
 function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
   return (
     <li
@@ -495,6 +563,10 @@ const sidebarMenuButtonVariants = cva(
   }
 )
 
+/**
+ * A button for a sidebar menu item.
+ * @param {React.ComponentProps<"button"> & { asChild?: boolean; isActive?: boolean; tooltip?: string | React.ComponentProps<typeof TooltipContent> } & VariantProps<typeof sidebarMenuButtonVariants>} props - The props for the component.
+ */
 function SidebarMenuButton({
   asChild = false,
   isActive = false,
@@ -545,6 +617,10 @@ function SidebarMenuButton({
   )
 }
 
+/**
+ * An action for a sidebar menu item.
+ * @param {React.ComponentProps<"button"> & { asChild?: boolean; showOnHover?: boolean }} props - The props for the component.
+ */
 function SidebarMenuAction({
   className,
   asChild = false,
@@ -577,6 +653,10 @@ function SidebarMenuAction({
   )
 }
 
+/**
+ * A badge for a sidebar menu item.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ */
 function SidebarMenuBadge({
   className,
   ...props
@@ -599,6 +679,10 @@ function SidebarMenuBadge({
   )
 }
 
+/**
+ * A skeleton for a sidebar menu item.
+ * @param {React.ComponentProps<"div"> & { showIcon?: boolean }} props - The props for the component.
+ */
 function SidebarMenuSkeleton({
   className,
   showIcon = false,
@@ -637,6 +721,10 @@ function SidebarMenuSkeleton({
   )
 }
 
+/**
+ * A submenu in the sidebar.
+ * @param {React.ComponentProps<"ul">} props - The props for the component.
+ */
 function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
@@ -652,6 +740,10 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
   )
 }
 
+/**
+ * An item in a submenu.
+ * @param {React.ComponentProps<"li">} props - The props for the component.
+ */
 function SidebarMenuSubItem({
   className,
   ...props
@@ -666,6 +758,10 @@ function SidebarMenuSubItem({
   )
 }
 
+/**
+ * A button for a submenu item.
+ * @param {React.ComponentProps<"a"> & { asChild?: boolean; size?: "sm" | "md"; isActive?: boolean }} props - The props for the component.
+ */
 function SidebarMenuSubButton({
   asChild = false,
   size = "md",

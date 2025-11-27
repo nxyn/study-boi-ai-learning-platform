@@ -2,6 +2,10 @@ import * as React from "react"
 
 const MOBILE_BREAKPOINT = 768
 
+/**
+ * A React hook that detects if the user is on a mobile device based on screen width.
+ * @returns {boolean} `true` if the screen width is less than the mobile breakpoint (768px), otherwise `false`.
+ */
 export function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
 

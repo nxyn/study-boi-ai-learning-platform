@@ -5,6 +5,12 @@ import { eq, desc, and } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/quiz-attempts`.
+ * Fetches the quiz attempts for the authenticated user, with optional filtering by quiz ID.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the quiz attempts or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -47,6 +53,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Handles POST requests to `/api/quiz-attempts`.
+ * Creates a new quiz attempt for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new quiz attempt or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

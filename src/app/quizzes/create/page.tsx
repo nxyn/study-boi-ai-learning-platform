@@ -22,6 +22,10 @@ interface Question {
   order: number;
 }
 
+/**
+ * The page for creating a new quiz.
+ * It provides a form for adding quiz details and questions.
+ */
 export default function CreateQuizPage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();

@@ -25,6 +25,13 @@ const badgeVariants = cva(
   }
 )
 
+/**
+ * A small label component.
+ * @param {React.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & { asChild?: boolean }} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"default" | "secondary" | "destructive" | "outline"} [props.variant] - The variant of the badge.
+ * @param {boolean} [props.asChild] - Whether to render the component as a child of another component.
+ */
 function Badge({
   className,
   variant,

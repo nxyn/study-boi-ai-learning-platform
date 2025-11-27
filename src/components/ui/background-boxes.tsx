@@ -3,6 +3,11 @@ import React from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
+/**
+ * A component that renders a grid of boxes with a hover effect.
+ * @param {object} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   const rows = new Array(150).fill(1);
   const cols = new Array(100).fill(1);

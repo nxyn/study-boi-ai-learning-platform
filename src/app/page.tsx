@@ -6,6 +6,10 @@ import { GraduationCap, MessageSquare, FileQuestion, Users, Sparkles, TrendingUp
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 
+/**
+ * The home page of the application.
+ * It displays a hero section, stats, features, and a call to action.
+ */
 export default function Home() {
   const features = [
   {

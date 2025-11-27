@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   description: "Generate NCERT/CBSE-aligned quizzes with AI based on your grade and topic.",
 };
 
+/**
+ * The page for the AI quiz generator.
+ * It displays the `AiGeneratorForm` component.
+ */
 export default function AiQuizGeneratorPage() {
   return (
     <div className="min-h-screen bg-background">

@@ -2,7 +2,18 @@ import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core';
 
 
 
+/**
+ * @module schema
+ * This module defines the database schema for the application using Drizzle ORM.
+ * It includes tables for user authentication, user profiles, quizzes, discussions, and more.
+ */
+
 // Auth tables for better-auth
+
+/**
+ * Represents a user in the system.
+ * This table is used by `better-auth` for authentication and session management.
+ */
 export const user = sqliteTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -19,6 +30,10 @@ export const user = sqliteTable("user", {
     .notNull(),
 });
 
+/**
+ * Stores user session information.
+ * This table is used by `better-auth` to manage user sessions.
+ */
 export const session = sqliteTable("session", {
   id: text("id").primaryKey(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
@@ -32,6 +47,10 @@ export const session = sqliteTable("session", {
     .references(() => user.id, { onDelete: "cascade" }),
 });
 
+/**
+ * Stores information about user accounts, including provider details and tokens.
+ * This table is used by `better-auth` for third-party authentication.
+ */
 export const account = sqliteTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
@@ -54,6 +73,10 @@ export const account = sqliteTable("account", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
+/**
+ * Stores verification tokens for actions like email verification.
+ * This table is used by `better-auth`.
+ */
 export const verification = sqliteTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
@@ -68,6 +91,10 @@ export const verification = sqliteTable("verification", {
 });
 
 // Add new tables for Study Boi app
+
+/**
+ * Stores additional profile information for users.
+ */
 export const userProfiles = sqliteTable('user_profiles', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
@@ -77,6 +104,9 @@ export const userProfiles = sqliteTable('user_profiles', {
   updatedAt: text('updated_at').notNull(),
 });
 
+/**
+ * Stores information about quizzes created by users.
+ */
 export const quizzes = sqliteTable('quizzes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   title: text('title').notNull(),
@@ -89,6 +119,9 @@ export const quizzes = sqliteTable('quizzes', {
   updatedAt: text('updated_at').notNull(),
 });
 
+/**
+ * Stores the questions for a specific quiz.
+ */
 export const quizQuestions = sqliteTable('quiz_questions', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   quizId: integer('quiz_id').notNull().references(() => quizzes.id, { onDelete: 'cascade' }),
@@ -99,6 +132,9 @@ export const quizQuestions = sqliteTable('quiz_questions', {
   order: integer('order').notNull(),
 });
 
+/**
+ * Stores the results of user attempts on quizzes.
+ */
 export const quizAttempts = sqliteTable('quiz_attempts', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   quizId: integer('quiz_id').notNull().references(() => quizzes.id, { onDelete: 'cascade' }),
@@ -108,6 +144,9 @@ export const quizAttempts = sqliteTable('quiz_attempts', {
   completedAt: text('completed_at').notNull(),
 });
 
+/**
+ * Stores information about discussion threads.
+ */
 export const discussions = sqliteTable('discussions', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   title: text('title').notNull(),
@@ -120,6 +159,9 @@ export const discussions = sqliteTable('discussions', {
   updatedAt: text('updated_at').notNull(),
 });
 
+/**
+ * Stores replies to discussion threads.
+ */
 export const discussionReplies = sqliteTable('discussion_replies', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   discussionId: integer('discussion_id').notNull().references(() => discussions.id, { onDelete: 'cascade' }),
@@ -129,6 +171,9 @@ export const discussionReplies = sqliteTable('discussion_replies', {
   createdAt: text('created_at').notNull(),
 });
 
+/**
+ * Stores likes for discussion threads.
+ */
 export const discussionLikes = sqliteTable('discussion_likes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   discussionId: integer('discussion_id').notNull().references(() => discussions.id, { onDelete: 'cascade' }),
@@ -136,6 +181,9 @@ export const discussionLikes = sqliteTable('discussion_likes', {
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 });
 
+/**
+ * Stores likes for discussion replies.
+ */
 export const replyLikes = sqliteTable('reply_likes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   replyId: integer('reply_id').notNull().references(() => discussionReplies.id, { onDelete: 'cascade' }),
@@ -143,6 +191,9 @@ export const replyLikes = sqliteTable('reply_likes', {
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 });
 
+/**
+ * Stores user achievements.
+ */
 export const achievements = sqliteTable('achievements', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
@@ -152,6 +203,9 @@ export const achievements = sqliteTable('achievements', {
   unlockedAt: text('unlocked_at').notNull(),
 });
 
+/**
+ * Tracks user study progress.
+ */
 export const studyProgress = sqliteTable('study_progress', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),

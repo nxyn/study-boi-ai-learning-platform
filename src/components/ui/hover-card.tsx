@@ -5,12 +5,20 @@ import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A popup that displays information related to an element when the user hovers over it.
+ * @param {React.ComponentProps<typeof HoverCardPrimitive.Root>} props - The props for the component.
+ */
 function HoverCard({
   ...props
 }: React.ComponentProps<typeof HoverCardPrimitive.Root>) {
   return <HoverCardPrimitive.Root data-slot="hover-card" {...props} />
 }
 
+/**
+ * The trigger for the hover card.
+ * @param {React.ComponentProps<typeof HoverCardPrimitive.Trigger>} props - The props for the component.
+ */
 function HoverCardTrigger({
   ...props
 }: React.ComponentProps<typeof HoverCardPrimitive.Trigger>) {
@@ -19,6 +27,12 @@ function HoverCardTrigger({
   )
 }
 
+/**
+ * The content of the hover card.
+ * @param {React.ComponentProps<typeof HoverCardPrimitive.Content>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"center" | "start" | "end"} [props.align="center"] - The alignment of the content.
+ */
 function HoverCardContent({
   className,
   align = "center",

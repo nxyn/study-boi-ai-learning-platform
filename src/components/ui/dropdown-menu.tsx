@@ -6,12 +6,20 @@ import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Root>} props - The props for the component.
+ */
 function DropdownMenu({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />
 }
 
+/**
+ * Portals the dropdown menu content to the body of the document.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Portal>} props - The props for the component.
+ */
 function DropdownMenuPortal({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>) {
@@ -20,6 +28,10 @@ function DropdownMenuPortal({
   )
 }
 
+/**
+ * The trigger for the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>} props - The props for the component.
+ */
 function DropdownMenuTrigger({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
@@ -31,6 +43,12 @@ function DropdownMenuTrigger({
   )
 }
 
+/**
+ * The content of the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Content>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {number} [props.sideOffset=4] - The offset of the content from the trigger.
+ */
 function DropdownMenuContent({
   className,
   sideOffset = 4,
@@ -51,6 +69,10 @@ function DropdownMenuContent({
   )
 }
 
+/**
+ * A group of items in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Group>} props - The props for the component.
+ */
 function DropdownMenuGroup({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
@@ -59,6 +81,10 @@ function DropdownMenuGroup({
   )
 }
 
+/**
+ * An item in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Item> & { inset?: boolean; variant?: "default" | "destructive" }} props - The props for the component.
+ */
 function DropdownMenuItem({
   className,
   inset,
@@ -82,6 +108,10 @@ function DropdownMenuItem({
   )
 }
 
+/**
+ * A checkbox item in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>} props - The props for the component.
+ */
 function DropdownMenuCheckboxItem({
   className,
   children,
@@ -108,6 +138,10 @@ function DropdownMenuCheckboxItem({
   )
 }
 
+/**
+ * A group of radio items in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>} props - The props for the component.
+ */
 function DropdownMenuRadioGroup({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>) {
@@ -119,6 +153,10 @@ function DropdownMenuRadioGroup({
   )
 }
 
+/**
+ * A radio item in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem>} props - The props for the component.
+ */
 function DropdownMenuRadioItem({
   className,
   children,
@@ -143,6 +181,10 @@ function DropdownMenuRadioItem({
   )
 }
 
+/**
+ * A label in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Label> & { inset?: boolean }} props - The props for the component.
+ */
 function DropdownMenuLabel({
   className,
   inset,
@@ -163,6 +205,10 @@ function DropdownMenuLabel({
   )
 }
 
+/**
+ * A separator in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Separator>} props - The props for the component.
+ */
 function DropdownMenuSeparator({
   className,
   ...props
@@ -176,6 +222,10 @@ function DropdownMenuSeparator({
   )
 }
 
+/**
+ * A shortcut in the dropdown menu.
+ * @param {React.ComponentProps<"span">} props - The props for the component.
+ */
 function DropdownMenuShortcut({
   className,
   ...props
@@ -192,12 +242,20 @@ function DropdownMenuShortcut({
   )
 }
 
+/**
+ * A submenu in the dropdown menu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.Sub>} props - The props for the component.
+ */
 function DropdownMenuSub({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
   return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />
 }
 
+/**
+ * The trigger for a submenu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & { inset?: boolean }} props - The props for the component.
+ */
 function DropdownMenuSubTrigger({
   className,
   inset,
@@ -222,6 +280,10 @@ function DropdownMenuSubTrigger({
   )
 }
 
+/**
+ * The content of a submenu.
+ * @param {React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>} props - The props for the component.
+ */
 function DropdownMenuSubContent({
   className,
   ...props
