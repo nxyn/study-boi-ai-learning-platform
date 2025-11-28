@@ -2,6 +2,12 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * An input component.
+ * @param {React.ComponentProps<"input">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {string} [props.type] - The type of the input.
+ */
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input

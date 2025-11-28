@@ -11,6 +11,10 @@ import { authClient, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+/**
+ * The sign-up page.
+ * It displays a form for creating a new account.
+ */
 export default function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

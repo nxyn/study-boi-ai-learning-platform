@@ -19,6 +19,10 @@ interface Quiz {
   creatorName?: string;
 }
 
+/**
+ * The main page for browsing and managing quizzes.
+ * It displays a list of all public quizzes and the user's own quizzes.
+ */
 export default function QuizzesPage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();

@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 
+/**
+ * The middleware function.
+ * It checks if the user is authenticated and redirects to the sign-in page if not.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} The response object.
+ */
 export async function middleware(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: request.headers,

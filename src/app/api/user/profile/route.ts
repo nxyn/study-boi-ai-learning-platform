@@ -5,6 +5,12 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/user/profile`.
+ * Fetches the profile for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the user's profile or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -31,6 +37,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Handles POST requests to `/api/user/profile`.
+ * Creates a new profile for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new profile or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -91,6 +103,12 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * Handles PUT requests to `/api/user/profile`.
+ * Updates the profile for the authenticated user.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the updated profile or an error message.
+ */
 export async function PUT(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

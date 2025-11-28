@@ -6,6 +6,11 @@ import { CheckIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A checkbox component.
+ * @param {React.ComponentProps<typeof CheckboxPrimitive.Root>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function Checkbox({
   className,
   ...props

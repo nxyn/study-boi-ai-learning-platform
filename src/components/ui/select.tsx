@@ -6,24 +6,40 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A select component.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Root>} props - The props for the component.
+ */
 function Select({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
 }
 
+/**
+ * A group of items in the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Group>} props - The props for the component.
+ */
 function SelectGroup({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />
 }
 
+/**
+ * The value of the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Value>} props - The props for the component.
+ */
 function SelectValue({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
+/**
+ * The trigger for the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Trigger> & { size?: "sm" | "default" }} props - The props for the component.
+ */
 function SelectTrigger({
   className,
   size = "default",
@@ -50,6 +66,10 @@ function SelectTrigger({
   )
 }
 
+/**
+ * The content of the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Content>} props - The props for the component.
+ */
 function SelectContent({
   className,
   children,
@@ -85,6 +105,10 @@ function SelectContent({
   )
 }
 
+/**
+ * The label for a group of items in the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Label>} props - The props for the component.
+ */
 function SelectLabel({
   className,
   ...props
@@ -98,6 +122,10 @@ function SelectLabel({
   )
 }
 
+/**
+ * An item in the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Item>} props - The props for the component.
+ */
 function SelectItem({
   className,
   children,
@@ -122,6 +150,10 @@ function SelectItem({
   )
 }
 
+/**
+ * A separator between items in the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Separator>} props - The props for the component.
+ */
 function SelectSeparator({
   className,
   ...props
@@ -135,6 +167,10 @@ function SelectSeparator({
   )
 }
 
+/**
+ * The button to scroll up in the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>} props - The props for the component.
+ */
 function SelectScrollUpButton({
   className,
   ...props
@@ -153,6 +189,10 @@ function SelectScrollUpButton({
   )
 }
 
+/**
+ * The button to scroll down in the select.
+ * @param {React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>} props - The props for the component.
+ */
 function SelectScrollDownButton({
   className,
   ...props

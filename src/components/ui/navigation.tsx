@@ -19,6 +19,10 @@ const navItems = [
   { href: "/testimonial", label: "Testimonials" },
 ];
 
+/**
+ * The main navigation component for the application.
+ * It displays a list of links to different pages.
+ */
 export function Navigation() {
   const pathname = usePathname();
 

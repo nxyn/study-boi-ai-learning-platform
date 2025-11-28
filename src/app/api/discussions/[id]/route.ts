@@ -5,6 +5,13 @@ import { eq, asc } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/discussions/[id]`.
+ * Fetches a specific discussion and its replies.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response containing the discussion and its replies, or an error message.
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -70,6 +77,13 @@ export async function GET(
   }
 }
 
+/**
+ * Handles PUT requests to `/api/discussions/[id]`.
+ * Updates a specific discussion.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response containing the updated discussion or an error message.
+ */
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -130,6 +144,13 @@ export async function PUT(
   }
 }
 
+/**
+ * Handles DELETE requests to `/api/discussions/[id]`.
+ * Deletes a specific discussion.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response confirming the deletion or an error message.
+ */
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }

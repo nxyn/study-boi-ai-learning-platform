@@ -5,6 +5,12 @@ import * as ProgressPrimitive from "@radix-ui/react-progress"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A progress bar.
+ * @param {React.ComponentProps<typeof ProgressPrimitive.Root>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {number} [props.value] - The current value of the progress bar.
+ */
 function Progress({
   className,
   value,

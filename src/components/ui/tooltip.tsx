@@ -5,6 +5,10 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * The provider for the tooltip component.
+ * @param {React.ComponentProps<typeof TooltipPrimitive.Provider>} props - The props for the component.
+ */
 function TooltipProvider({
   delayDuration = 0,
   ...props
@@ -18,6 +22,10 @@ function TooltipProvider({
   )
 }
 
+/**
+ * A tooltip component.
+ * @param {React.ComponentProps<typeof TooltipPrimitive.Root>} props - The props for the component.
+ */
 function Tooltip({
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
@@ -28,12 +36,20 @@ function Tooltip({
   )
 }
 
+/**
+ * The trigger for the tooltip.
+ * @param {React.ComponentProps<typeof TooltipPrimitive.Trigger>} props - The props for the component.
+ */
 function TooltipTrigger({
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
 }
 
+/**
+ * The content of the tooltip.
+ * @param {React.ComponentProps<typeof TooltipPrimitive.Content>} props - The props for the component.
+ */
 function TooltipContent({
   className,
   sideOffset = 0,

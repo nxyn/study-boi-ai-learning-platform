@@ -21,6 +21,10 @@ interface Profile {
   updatedAt: string;
 }
 
+/**
+ * The profile page for the authenticated user.
+ * It allows the user to view and update their profile information.
+ */
 export default function ProfilePage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();

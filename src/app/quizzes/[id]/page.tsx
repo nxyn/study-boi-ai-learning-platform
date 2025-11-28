@@ -31,6 +31,10 @@ interface Quiz {
   questions: Question[];
 }
 
+/**
+ * The page for taking a specific quiz.
+ * It fetches the quiz and its questions, and handles the quiz-taking logic.
+ */
 export default function QuizPage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();

@@ -5,6 +5,13 @@ import { eq, and, asc } from 'drizzle-orm';
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/quizzes/[id]/questions`.
+ * Fetches all questions for a specific quiz.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response containing the questions for the quiz, or an error message.
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -53,6 +60,13 @@ export async function GET(
   }
 }
 
+/**
+ * Handles POST requests to `/api/quizzes/[id]/questions`.
+ * Creates a new question for a specific quiz.
+ * @param {NextRequest} request - The incoming request object.
+ * @param {{ params: { id: string } }} context - The context object, containing the dynamic route parameters.
+ * @returns {NextResponse} A response containing the new question or an error message.
+ */
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -166,6 +180,12 @@ export async function POST(
   }
 }
 
+/**
+ * Handles PUT requests to `/api/quizzes/[id]/questions`.
+ * Updates a specific question.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the updated question or an error message.
+ */
 export async function PUT(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -283,6 +303,12 @@ export async function PUT(request: NextRequest) {
   }
 }
 
+/**
+ * Handles DELETE requests to `/api/quizzes/[id]/questions`.
+ * Deletes a specific question.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response confirming the deletion or an error message.
+ */
 export async function DELETE(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

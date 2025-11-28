@@ -21,6 +21,10 @@ interface ChatSession {
   messages: Message[];
 }
 
+/**
+ * The main component for the chat tutor page.
+ * It handles the chat interface, message history, and communication with the AI tutor API.
+ */
 export default function ChatTutorPage() {
   const { data: session, isPending, refetch } = useSession();
   const router = useRouter();

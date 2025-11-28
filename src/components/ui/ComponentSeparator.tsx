@@ -3,7 +3,12 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Component separator for spacing between major sections
+/**
+ * A visual separator component used to create spacing between major sections of the UI.
+ * It consists of a decorative element with lines extending to the sides.
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function ComponentSeparator({ 
   className, 
   ...props 

@@ -32,6 +32,10 @@ type CarouselContextProps = {
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
 
+/**
+ * A hook to access the carousel's context.
+ * @returns {CarouselContextProps} The carousel's context.
+ */
 function useCarousel() {
   const context = React.useContext(CarouselContext)
 
@@ -42,6 +46,12 @@ function useCarousel() {
   return context
 }
 
+/**
+ * The main carousel component.
+ * @param {React.ComponentProps<"div"> & CarouselProps} props - The props for the component.
+ * @param {"horizontal" | "vertical"} [props.orientation="horizontal"] - The orientation of the carousel.
+ * @param {CarouselOptions} [props.opts] - Options for the embla-carousel-react hook.
+ */
 function Carousel({
   orientation = "horizontal",
   opts,
@@ -132,6 +142,11 @@ function Carousel({
   )
 }
 
+/**
+ * The content of the carousel.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel()
 
@@ -153,6 +168,11 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * An item in the carousel.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
   const { orientation } = useCarousel()
 
@@ -171,6 +191,13 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The previous button for the carousel.
+ * @param {React.ComponentProps<typeof Button>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"outline"} [props.variant="outline"] - The variant of the button.
+ * @param {"icon"} [props.size="icon"] - The size of the button.
+ */
 function CarouselPrevious({
   className,
   variant = "outline",
@@ -201,6 +228,13 @@ function CarouselPrevious({
   )
 }
 
+/**
+ * The next button for the carousel.
+ * @param {React.ComponentProps<typeof Button>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {"outline"} [props.variant="outline"] - The variant of the button.
+ * @param {"icon"} [props.size="icon"] - The size of the button.
+ */
 function CarouselNext({
   className,
   variant = "outline",

@@ -5,30 +5,51 @@ import { Drawer as DrawerPrimitive } from "vaul"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A drawer component that slides in from the side of the screen.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Root>} props - The props for the component.
+ */
 function Drawer({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
   return <DrawerPrimitive.Root data-slot="drawer" {...props} />
 }
 
+/**
+ * The button that opens the drawer.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Trigger>} props - The props for the component.
+ */
 function DrawerTrigger({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Trigger>) {
   return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />
 }
 
+/**
+ * Portals the drawer content to the body of the document.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Portal>} props - The props for the component.
+ */
 function DrawerPortal({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Portal>) {
   return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />
 }
 
+/**
+ * The button that closes the drawer.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Close>} props - The props for the component.
+ */
 function DrawerClose({
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Close>) {
   return <DrawerPrimitive.Close data-slot="drawer-close" {...props} />
 }
 
+/**
+ * A layer that covers the inert portion of the view when the drawer is open.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Overlay>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function DrawerOverlay({
   className,
   ...props
@@ -45,6 +66,12 @@ function DrawerOverlay({
   )
 }
 
+/**
+ * The content of the drawer.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Content>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {React.ReactNode} [props.children] - The content of the drawer.
+ */
 function DrawerContent({
   className,
   children,
@@ -72,6 +99,11 @@ function DrawerContent({
   )
 }
 
+/**
+ * The header of the drawer.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -85,6 +117,11 @@ function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The footer of the drawer.
+ * @param {React.ComponentProps<"div">} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -95,6 +132,11 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/**
+ * The title of the drawer.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Title>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function DrawerTitle({
   className,
   ...props
@@ -108,6 +150,11 @@ function DrawerTitle({
   )
 }
 
+/**
+ * The description of the drawer.
+ * @param {React.ComponentProps<typeof DrawerPrimitive.Description>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ */
 function DrawerDescription({
   className,
   ...props

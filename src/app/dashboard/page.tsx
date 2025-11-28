@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Loader2, MessageSquare, FileQuestion, Users, Award, TrendingUp, Sparkles } from "lucide-react";
 import Link from "next/link";
 
+/**
+ * The main dashboard page for authenticated users.
+ * It displays user stats, quick actions, and a welcome message.
+ */
 export default function DashboardPage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();

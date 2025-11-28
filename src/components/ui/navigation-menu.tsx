@@ -5,6 +5,10 @@ import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A navigation menu.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Root> & { viewport?: boolean }} props - The props for the component.
+ */
 function NavigationMenu({
   className,
   children,
@@ -29,6 +33,10 @@ function NavigationMenu({
   )
 }
 
+/**
+ * A list of items in the navigation menu.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.List>} props - The props for the component.
+ */
 function NavigationMenuList({
   className,
   ...props
@@ -45,6 +53,10 @@ function NavigationMenuList({
   )
 }
 
+/**
+ * An item in the navigation menu.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Item>} props - The props for the component.
+ */
 function NavigationMenuItem({
   className,
   ...props
@@ -62,6 +74,10 @@ const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
 )
 
+/**
+ * The trigger for a navigation menu item.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>} props - The props for the component.
+ */
 function NavigationMenuTrigger({
   className,
   children,
@@ -82,6 +98,10 @@ function NavigationMenuTrigger({
   )
 }
 
+/**
+ * The content of a navigation menu item.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Content>} props - The props for the component.
+ */
 function NavigationMenuContent({
   className,
   ...props
@@ -99,6 +119,10 @@ function NavigationMenuContent({
   )
 }
 
+/**
+ * The viewport for the navigation menu.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Viewport>} props - The props for the component.
+ */
 function NavigationMenuViewport({
   className,
   ...props
@@ -121,6 +145,10 @@ function NavigationMenuViewport({
   )
 }
 
+/**
+ * A link in the navigation menu.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Link>} props - The props for the component.
+ */
 function NavigationMenuLink({
   className,
   ...props
@@ -137,6 +165,10 @@ function NavigationMenuLink({
   )
 }
 
+/**
+ * An indicator for the active navigation menu item.
+ * @param {React.ComponentProps<typeof NavigationMenuPrimitive.Indicator>} props - The props for the component.
+ */
 function NavigationMenuIndicator({
   className,
   ...props

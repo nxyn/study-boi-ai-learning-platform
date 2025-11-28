@@ -2,6 +2,10 @@
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "motion/react";
 
+/**
+ * A container that scrolls and animates its children.
+ * @param {{ titleComponent: string | React.ReactNode; children: React.ReactNode }} props - The props for the component.
+ */
 export const ContainerScroll = ({
   titleComponent,
   children,
@@ -54,6 +58,10 @@ export const ContainerScroll = ({
   );
 };
 
+/**
+ * The header for the container scroll animation.
+ * @param {{ translate: MotionValue<number>; titleComponent: string | React.ReactNode }} props - The props for the component.
+ */
 export const Header = ({ translate, titleComponent }: any) => {
   return (
     <motion.div
@@ -67,6 +75,10 @@ export const Header = ({ translate, titleComponent }: any) => {
   );
 };
 
+/**
+ * The card for the container scroll animation.
+ * @param {{ rotate: MotionValue<number>; scale: MotionValue<number>; translate: MotionValue<number>; children: React.ReactNode }} props - The props for the component.
+ */
 export const Card = ({
   rotate,
   scale,

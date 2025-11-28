@@ -5,6 +5,12 @@ import { eq, like, or, desc, sql } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+/**
+ * Handles GET requests to `/api/discussions`.
+ * Fetches a list of discussions, with optional filtering by subject and search term.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the list of discussions or an error message.
+ */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -64,6 +70,12 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Handles POST requests to `/api/discussions`.
+ * Creates a new discussion.
+ * @param {NextRequest} request - The incoming request object.
+ * @returns {NextResponse} A response containing the new discussion or an error message.
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });

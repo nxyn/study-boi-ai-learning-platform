@@ -11,6 +11,12 @@ import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 
+/**
+ * A calendar component that allows users to select a date.
+ * @param {React.ComponentProps<typeof DayPicker> & { buttonVariant?: React.ComponentProps<typeof Button>["variant"] }} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {object} [props.classNames] - A map of class names to apply to the component's elements.
+ */
 function Calendar({
   className,
   classNames,
@@ -172,6 +178,12 @@ function Calendar({
   )
 }
 
+/**
+ * A button component for a day in the calendar.
+ * @param {React.ComponentProps<typeof DayButton>} props - The props for the component.
+ * @param {string} [props.className] - Additional CSS classes to apply to the component.
+ * @param {Date} props.day - The day to render.
+ */
 function CalendarDayButton({
   className,
   day,

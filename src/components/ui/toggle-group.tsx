@@ -14,6 +14,10 @@ const ToggleGroupContext = React.createContext<
   variant: "default",
 })
 
+/**
+ * A group of toggle buttons.
+ * @param {React.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>} props - The props for the component.
+ */
 function ToggleGroup({
   className,
   variant,
@@ -40,6 +44,10 @@ function ToggleGroup({
   )
 }
 
+/**
+ * An item in a toggle group.
+ * @param {React.ComponentProps<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants>} props - The props for the component.
+ */
 function ToggleGroupItem({
   className,
   children,

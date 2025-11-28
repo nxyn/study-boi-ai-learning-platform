@@ -8,6 +8,13 @@ type ReporterProps = {
   reset?: () => void;
 };
 
+/**
+ * A component that reports errors to the parent window.
+ * This is used to report errors from the iframe to the main window.
+ * @param {ReporterProps} props - The props for the component.
+ * @param {Error & { digest?: string }} [props.error] - The error to report.
+ * @param {() => void} [props.reset] - A function to reset the error state.
+ */
 export default function ErrorReporter({ error, reset }: ReporterProps) {
   /* ─ instrumentation shared by every route ─ */
   const lastOverlayMsg = useRef("");

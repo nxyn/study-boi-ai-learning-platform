@@ -7,6 +7,12 @@ import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import { Toaster } from "@/components/ui/sonner";
 
+/**
+ * The root layout for the application.
+ * It includes the `ErrorReporter`, `Toaster`, and `VisualEditsMessenger` components.
+ * @param {Readonly<{ children: React.ReactNode }>} props - The props for the component.
+ * @param {React.ReactNode} props.children - The content to display in the layout.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

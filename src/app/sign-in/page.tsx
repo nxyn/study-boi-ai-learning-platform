@@ -3,6 +3,10 @@
 import { Suspense } from "react";
 import { SignInForm } from "@/components/sign-in-form";
 
+/**
+ * The sign-in page.
+ * It displays the `SignInForm` component, wrapped in a `Suspense` boundary.
+ */
 export default function SignInPage() {
   return (
     <Suspense fallback={

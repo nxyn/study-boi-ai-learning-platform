@@ -28,6 +28,10 @@ const toggleVariants = cva(
   }
 )
 
+/**
+ * A toggle button.
+ * @param {React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>} props - The props for the component.
+ */
 function Toggle({
   className,
   variant,
