@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { discussions, discussionReplies, user } from "@/db/schema";
-import { eq, like, or, desc, sql } from "drizzle-orm";
+import { eq, like, or, desc, sql, and } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       })
       .from(discussions)
       .leftJoin(user, eq(discussions.createdBy, user.id))
-      .where(whereConditions.length > 0 ? sql`${whereConditions.join(' AND ')}` : undefined)
+      .where(whereConditions.length > 0 ? and(...whereConditions) : undefined)
       .orderBy(desc(discussions.createdAt))
       .limit(limit)
       .offset(offset);
