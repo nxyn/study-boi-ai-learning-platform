@@ -398,7 +398,36 @@ async function main() {
         }
     ];
 
-    await db.insert(quizQuestions).values(sampleQuestions);
+    // Transform questions to match schema
+    const questionsToInsert = sampleQuestions.map((q, index) => {
+        // Create options array
+        const options = [q.correctAnswer, ...q.wrongAnswers];
+
+        // Shuffle options
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+
+        // Find correct answer index
+        const correctIndex = options.indexOf(q.correctAnswer);
+
+        // Calculate order (simple approximation based on index in this array,
+        // ideally should be per quiz but this seed file is ordered by quiz)
+        // We can just use the loop index + 1 as a unique order if global, or calculate per quiz.
+        // Let's just use index for now, assuming frontend sorts by this field.
+
+        return {
+            quizId: q.quizId,
+            question: q.question,
+            options: options,
+            correctAnswer: correctIndex,
+            explanation: q.explanation,
+            order: index + 1
+        };
+    });
+
+    await db.insert(quizQuestions).values(questionsToInsert);
     
     console.log('✅ Quiz questions seeder completed successfully');
 }
