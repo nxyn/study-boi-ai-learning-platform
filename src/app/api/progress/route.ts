@@ -22,13 +22,16 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const subject = searchParams.get('subject');
 
-    let query = db.select().from(studyProgress).where(eq(studyProgress.userId, session.user.id));
+    const conditions = [eq(studyProgress.userId, session.user.id)];
 
     if (subject) {
-      query = query.where(and(eq(studyProgress.userId, session.user.id), eq(studyProgress.subject, subject)));
+      conditions.push(eq(studyProgress.subject, subject));
     }
 
-    const results = await query;
+    const results = await db.select()
+      .from(studyProgress)
+      .where(and(...conditions));
+
     return NextResponse.json(results);
   } catch (error) {
     console.error('GET error:', error);

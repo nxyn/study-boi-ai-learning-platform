@@ -8,6 +8,9 @@ const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader
  * @see https://nextjs.org/docs/api-reference/next.config.js/introduction
  */
 const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {

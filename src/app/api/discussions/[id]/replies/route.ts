@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -16,7 +16,8 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const discussionId = parseInt(params.id);
+    const { id } = await params;
+    const discussionId = parseInt(id);
     if (!discussionId || isNaN(discussionId)) {
       return NextResponse.json({ 
         error: "Valid discussion ID is required",
@@ -60,7 +61,7 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -69,7 +70,8 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const discussionId = parseInt(params.id);
+    const { id } = await params;
+    const discussionId = parseInt(id);
     if (!discussionId || isNaN(discussionId)) {
       return NextResponse.json({ 
         error: "Valid discussion ID is required",

@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string; replyId: string } }
+  { params }: { params: Promise<{ id: string; replyId: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -16,7 +16,7 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id, replyId } = params;
+    const { id, replyId } = await params;
 
     // Validate IDs
     if (!id || isNaN(parseInt(id))) {
@@ -81,7 +81,7 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string; replyId: string } }
+  { params }: { params: Promise<{ id: string; replyId: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -90,7 +90,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id, replyId } = params;
+    const { id, replyId } = await params;
 
     // Validate IDs
     if (!id || isNaN(parseInt(id))) {
@@ -147,7 +147,7 @@ export async function POST(
         .values({
           replyId: replyIdInt,
           userId: session.user.id,
-          createdAt: Date.now()
+          createdAt: new Date()
         });
       liked = true;
     }

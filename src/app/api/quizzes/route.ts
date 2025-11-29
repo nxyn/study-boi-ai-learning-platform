@@ -40,12 +40,13 @@ export async function GET(request: NextRequest) {
     }
 
     if (search) {
-      whereConditions.push(
-        or(
-          like(quizzes.title, `%${search}%`),
-          like(quizzes.description, `%${search}%`)
-        )
+      const searchCondition = or(
+        like(quizzes.title, `%${search}%`),
+        like(quizzes.description, `%${search}%`)
       );
+      if (searchCondition) {
+        whereConditions.push(searchCondition);
+      }
     }
 
     // Fetch quizzes with creator information

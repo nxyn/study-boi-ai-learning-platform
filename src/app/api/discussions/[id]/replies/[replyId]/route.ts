@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string; replyId: string } }
+  { params }: { params: Promise<{ id: string; replyId: string }> }
 ) {
   try {
     // Authentication check
@@ -20,7 +20,7 @@ export async function DELETE(
       }, { status: 401 });
     }
 
-    const { id, replyId } = params;
+    const { id, replyId } = await params;
 
     // Validate replyId parameter
     if (!replyId || isNaN(parseInt(replyId))) {
@@ -46,7 +46,7 @@ export async function DELETE(
     }
 
     // Verify the current user owns the reply
-    if (reply[0].userId !== session.user.id) {
+    if (reply[0].createdBy !== session.user.id) {
       return NextResponse.json({ 
         error: 'You do not have permission to delete this reply',
         code: 'FORBIDDEN' 
@@ -57,7 +57,7 @@ export async function DELETE(
     const deleted = await db.delete(discussionReplies)
       .where(and(
         eq(discussionReplies.id, replyIdInt),
-        eq(discussionReplies.userId, session.user.id)
+        eq(discussionReplies.createdBy, session.user.id)
       ))
       .returning();
 

@@ -16,7 +16,7 @@ const VALID_DIFFICULTIES = ['easy', 'medium', 'hard'];
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -25,7 +25,8 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const quizId = parseInt(params.id);
+    const { id } = await params;
+    const quizId = parseInt(id);
     if (!quizId || isNaN(quizId)) {
       return NextResponse.json({ 
         error: "Valid quiz ID is required",
@@ -79,7 +80,7 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -88,7 +89,8 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const quizId = parseInt(params.id);
+    const { id } = await params;
+    const quizId = parseInt(id);
     if (!quizId || isNaN(quizId)) {
       return NextResponse.json({ 
         error: "Valid quiz ID is required",
@@ -155,7 +157,7 @@ export async function PUT(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -164,7 +166,8 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const quizId = parseInt(params.id);
+    const { id } = await params;
+    const quizId = parseInt(id);
     if (!quizId || isNaN(quizId)) {
       return NextResponse.json({ 
         error: "Valid quiz ID is required",
